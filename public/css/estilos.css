@@ -1,72 +1,54 @@
-*{
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-     font-family: sans-serif;
-    }
-    body{
-     background-repeat: no-repeat;
-     background-attachment: fixed;
-     background-size: 90rem;
-     background-position: top;
-     background-image:url();
-     width: 10%;
-     height: 10%;
-     font-family: Arial, Helvetica;
-     letter-spacing: 0.02rem;
-     font-weight: 400px;
-    }
-   
-    .Supra-Container{
-     width: 100%;
-     max-width: 1000px;
-     background-color: #FF712B ;
-     margin: auto;
-     margin-top: 88px;
-    }
-    header{
-     width: 100%;
-     height: 60px;
-     position: fixed;
-     left: 0;
-     top: 0;
-     background-color: #FF712B;
-    }
-    #check{
-     
-    }
-    #check:checked ~.menu{
-        width: 300px;
-    }
-    .menu{
-     position: fixed;
-     top: 60px;
-     width: 0px;
-     height: 100vh;
-     background-color: #383838;
-     transition: all 300ms;
-     overflow: hidden;
+* {
+	margin: 0;
+	padding: 0;
+}
 
-    }
-    .menu li {
-        padding: 20px;
-        color:white;
-        cursor: pointer;
-        transition: all 300ms;
-        display: block;
-        width: 400px,
-    }
-    .menu li:hover{
-        background: rgba(0,0,0,0.2);
+body {
+	background: #E9ECF4;
+	color: #000;
+	font-family: 'Roboto', sans-serif;
+}
 
-    }
-    .Supra-Container label{
-     position: fixed;
-     width: 100%;
-     max-width: 1000px;
-     top: 15px;
-     font-size: 26px;
-     color: white;
-     cursor: pointer;
-     z-index: 10;
-    }
+.container {
+    width: 100%;
+    height: 100vh;
+	display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 25%  repeat(2, 1fr);
+	/*grid-template-columns: repeat(3, 1fr);*/
+	grid-template-rows: repeat(4, auto);
+	grid-template-areas: "barra botones materia"
+						 "barra materias materias"
+						 "barra materias materias"
+						 "barra materias materias";
+}
+
+.barra{
+	background: #12203E;
+    color: #fff;
+    grid-area: barra;
+}
+.materias{
+    background: #fff;
+    grid-area: materias;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card .content {
+    flex: 1 1 auto;
+}
+/*Se define la estructura de la nueva vista cuando el ancho sea 768px*/
+@media screen and (max-width: 768px){
+	.container {
+        grid-template-columns: repeat(3, 1fr);
+	    /*grid-template-columns: repeat(3, 1fr);*/
+	    grid-template-rows: 25%, repeat(3, 1fr);
+		grid-template-areas:"barra barra barra"
+						    "botones botones materia"
+						    "materias materias materias"
+						    "materias materias materias";
+	}
+}
