@@ -17,7 +17,7 @@ body {
     grid-template-columns: 25%  repeat(2, 1fr);
 	/*grid-template-columns: repeat(3, 1fr);*/
 	grid-template-rows: repeat(4, auto);
-	grid-template-areas: "barra botones materia"
+	grid-template-areas: "barra materias materias"
 						 "barra materias materias"
 						 "barra materias materias"
 						 "barra materias materias";
@@ -47,7 +47,7 @@ body {
 	    /*grid-template-columns: repeat(3, 1fr);*/
 	    grid-template-rows: 25%, repeat(3, 1fr);
 		grid-template-areas:"barra barra barra"
-						    "botones botones materia"
+						    "materias materias materias"
 						    "materias materias materias"
 						    "materias materias materias";
 	}
