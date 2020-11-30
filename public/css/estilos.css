@@ -1,4 +1,6 @@
-* {
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+html, body {
 	margin: 0;
 	padding: 0;
 }
@@ -13,8 +15,8 @@ body {
     width: 100%;
     height: 100vh;
 	display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 25%  repeat(2, 1fr);
+    grid-gap: 0;
+    grid-template-columns: 30%  35% 35%;
 	/*grid-template-columns: repeat(3, 1fr);*/
 	grid-template-rows: repeat(4, auto);
 	grid-template-areas: "barra materias materias"
@@ -30,22 +32,70 @@ body {
 }
 .materias{
     background: #fff;
-    grid-area: materias;
+	grid-area: materias;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
 }
-.card {
-    display: flex;
+.materias .card{
+    width: 280px;
+    height: 380px;
+    border-radius: 8px;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+	transition: all 0.25s;
+	display: flex;
+    justify-content: center;
+    align-content: center;
     flex-direction: column;
 }
 
-.card .content {
-    flex: 1 1 auto;
+.materias .card:hover{
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
 }
+
+.materias .card .title{
+    width: 330px;
+    height: 220px;
+}
+
+
+.materias .card h4{
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 20px;
+    font-size: 16px;
+	font-weight: 600;
+	
+}
+
+.materias .card p{
+    padding: 0 1rem;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.materias .card a {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+	color: #ffffff;
+	margin-left: 10px;
+    margin-right: 10px;
+    background-color: #1883ba;
+    border-radius: 6px;
+}
+
 /*Se define la estructura de la nueva vista cuando el ancho sea 768px*/
-@media screen and (max-width: 768px){
+@media screen and (min-width: 100px) and (orientation: portrait){
 	.container {
         grid-template-columns: repeat(3, 1fr);
-	    /*grid-template-columns: repeat(3, 1fr);*/
-	    grid-template-rows: 25%, repeat(3, 1fr);
+	    grid-template-rows: 10% 30%  30% 30%;
 		grid-template-areas:"barra barra barra"
 						    "materias materias materias"
 						    "materias materias materias"
