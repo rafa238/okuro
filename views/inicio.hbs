@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Okuro</title>
+    <link  rel="icon"   href="imagenes/logo.ico" type="image/png" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    <!-- estilos especiales -->
+    <link href="/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block bg-light sidebar collapse">
+        <header class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow" style="position: static;">
+          <a class="navbar-brand col-lg-8" href="#" style="overflow: auto">
+            <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px"style="margin-right: 5%">
+            {{#if nombre}} {{nombre}} {{/if}}
+
+          </a>
+          <a href="/logout" class="navbar-brand btn btn-secondary col-lg-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM11.5 2H11V1h.5A1.5 1.5 0 0 1 13 2.5V15h-1V2.5a.5.5 0 0 0-.5-.5z"></path>
+            <path fill-rule="evenodd" d="M10.828.122A.5.5 0 0 1 11 .5V15h-1V1.077l-6 .857V15H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117z"></path>
+            <path d="M8 9c0 .552.224 1 .5 1s.5-.448.5-1-.224-1-.5-1-.5.448-.5 1z"></path>
+            </svg>
+            <span class="visually-hidden">Button</span>
+          </a>
+        </header>
+        <div class="position-sticky">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Chats</span>
+            <a class="link-secondary" href="#">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+            </a>
+          </h6>
+          <ul class="nav flex-column list-group bg-light">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+              <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
+              Si no entregas tu parte te sacamos...
+              <a href="#">
+                <span class="badge bg-primary rounded-pill">14</span>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+              <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
+              Si no entregas tu parte te sacamos...
+              <a href="#">
+                <span class="badge bg-primary rounded-pill">14</span>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+              <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
+              Si no entregas tu parte te sacamos...
+              <a href="#">
+                <span class="badge bg-primary rounded-pill">14</span>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+              <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
+              Si no entregas tu parte te sacamos...
+              <a href="#">
+                <span class="badge bg-primary rounded-pill">14</span>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+              <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
+              Si no entregas tu parte te sacamos...
+              <a href="#">
+                <span class="badge bg-primary rounded-pill">14</span>
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Tareas pendientes</span>
+            <a class="link-secondary" href="#" aria-label="Add a new report">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+            </a>
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Español
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Historia
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Biologia
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Español
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Tus Materias</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">
+                <!--icono de casita-->
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">
+                <!--icono de calensario-->
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+                <!--aqui termina el icono-->
+              </button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+              <span data-feather="calendar"></span>
+              This week
+            </button>
+          </div>
+        </div>
+
+        <div class="materias container">
+          <div class="materias">
+                  <div class="card">
+                    <li class="articles__article" style="--animation-order:1; background: #ff8cc6">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Laboratorio de proyectos</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #ff8cc6"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Laboratorio de proyectos</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #ff8cc6"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="card">
+                      <li class="articles__article" style="--animation-order:1; background: #90d1fc">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Base de datos</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #90d1fc"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Base de datos</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #90d1fc"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="card">
+                      <li class="articles__article" style="--animation-order:1; background: #d25bd7">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Informatica</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #d25bd7"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Informatica</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #d25bd7"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="card">
+                      <li class="articles__article" style="--animation-order:1; background: #f7f33d">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Calculo</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #f7f33d"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Calculo</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #f7f33d"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="card">
+                      <li class="articles__article" style="--animation-order:1; background: #79ff41">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Historia</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #79ff41"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Historia</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #79ff41"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="card">
+                      <li class="articles__article" style="--animation-order:1; background: #ff6442">
+                      <a class="articles__link">
+                        <div class="articles__content articles__content--lhs" >
+                        <h2 class="articles__title">Biologia</h2>
+                        <div class="articles__footer">
+                         <p></p><p class="circulo" style="background: #ff6442"></p></div>
+                        </div>
+                        <div class="articles__content articles__content--rhs" aria-hidden="true">
+                        <h2 class="articles__title" >Biologia</h2>
+                        <div class="articles__footer">
+                          <p></p><p class="circulo" style="background: #ff6442"></p></div>
+                        </div>
+                      </a>
+                    </li>
+                  </div>
+              </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    
+    crossorigin="anonymou"></script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+     
+  
+
+</body>
+</html>
