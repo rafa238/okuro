@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Inicio</title>
+    <link rel="icon" href="imagenes/logo.ico" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- estilos especiales -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!--Color picker-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            {{> aside this}}
+
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+
+                {{> header this titulo='Crea tu grupo'}}
+                {{#if message}}
+                    <div class="alert alert-warning" role="alert">
+                        {{message}}
+                    </div>
+                {{/if}}
+                <form class="needs-validation" novalidate="" method="post" action="/team/add">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="username" class="form-label">Nombre del Grupo</label>
+                            <div class="input-group">
+                                <input name="nombreGrupo" type="text" class="form-control" id="username"
+                                    placeholder="Nombre" required="">
+                                <div class="invalid-feedback">
+                                    El nombre es requerido de forma correcta.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="email" class="form-label">Descripcion </label>
+                            <textarea name="descripcionGrupo" class="form-control" aria-label="With textarea"
+                                placeholder="Introduce una descripción breve de tu grupo" required=""></textarea>
+                            <div class="invalid-feedback">
+                                Introduce una descripcion.
+                            </div>
+                        </div>
+
+                        <div class="col-6 mt-2">
+                            <label class="form-label">Color</label>
+                            <div id="cp3" class="input-group colorpicker-component">
+                                <input type="text" class="form-control" readonly="" name="colorGrupo" />
+                                <span class="input-group-text input-group-addon"><i></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit">Agregar</button>
+                </form>
+            </main>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymou"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+    <!-- Color picker-->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#cp3').colorpicker({
+                color: '#0D6EFD',
+                format: 'hex'
+            });
+        });
+    </script>
+    </script>
+</body>
+
+</html>

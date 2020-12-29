@@ -1,61 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/estilos.css">
-    <title> INICIO DE SESION </title>
+    <title>Okuro - Login</title>
+    <link rel="stylesheet" href="css/style2.css">
+    <link rel="icon" href="imagenes/logo.ico" type="image/png" />
 </head>
+
 <body>
-    
-
-    <nav>
-        <h1>Login</h1>
-        <ul>
-            <li><a href="/login">Inicia sesion</a></li>
-            <li><a href="/register">Registrate</a></li>
-            <li><a href=""></a></li>          
-        </ul>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-header">
-                Inicia sesion
+    {{>animacion}}
+    <div class="wrapper">
+        <div class="rec-prism">
+            <div class="face face-front">
+                <div class="content">
+                    {{#if message}}
+                    <h4>{{message}}</h4>
+                    {{/if}}
+                    <h2>Login</h2>
+                    <form action="/auth/login" method="post">
+                        <div class="field-wrapper normally">
+                            <input type="text" name="email" placeholder="email">
+                            <label>Email</label>
+                        </div>
+                        <div class="field-wrapper normally">
+                            <input type="password" name="password" placeholder="Contrasena" autocomplete="new-password">
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="field-wrapper normally">
+                            <input type="submit">
+                        </div>
+                        <span class="signup" onclick="showSignup()">Registrate aqui!</span>
+                    </form>
+                </div>
             </div>
-            <div class="card-body">
-                <form action="/auth/login" method="POST">
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Ingresa tu Correo Electronico</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
-                        
+            <div class="face face-right">
+                <div class="content">
+                    <h2>Registrar</h2>
+                    <form action="/auth/register" method="POST" enctype="multipart/form-data">
+                        <div class="field-wrapper small">
+                            <input type="text" name="name" placeholder="Nombre">
+                            <label>Nombre</label>
+                        </div>
+                        <div class="field-wrapper small">
+                            <input type="text" name="lastName" placeholder="Apellido">
+                            <label>Apellido</label>
+                        </div>
+                        <div class="field-wrapper small">
+                            <input type="text" name="email" placeholder="email">
+                            <label>Email</label>
+                        </div>
+                        <div class="field-wrapper small">
+                            <input type="password" name="password" placeholder="Contraseña">
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="input__row uploader small">
+                            <div id="inputval" class="input-value">Selecciona una imagen</div>
+                            <label for="file_1"></label>
+                            <input id="file_1" class="upload" type="file" name="archivo" accept="image/png, image/jpeg">
+                        </div>
+                        <div class="field-wrapper small">
+                            <input type="submit" onclick="showThankYou()">
+                        </div>
+                        <span class="singin" onclick="showLogin()">Ya te registrarse? Logueate</span>
+                    </form>
+                </div>
+            </div>
+            <div class="face face-bottom">
+                <div class="content">
+                    <div class="thank-you-msg">
+                        <span class="singin" onclick="showLogin()">Logueate</span>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Ingresa tu contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div> 
-                    <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
-
-                </form>
+                </div>
             </div>
-
-
         </div>
-
-        {{#if message}}
-            <h4 class="alert alert-danger mt-4 ">
-                {{message}}
-            </h4>
-
-
-        {{/if}}
     </div>
+    <script src="/script.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+        $('#file_1').on('change', function () {
+            $('#inputval').text($(this).val());
+        });
+    </script>
 
 </body>
+
 </html>

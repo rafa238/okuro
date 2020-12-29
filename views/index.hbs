@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/estilos.css">
-    <title>  </title>
+	<meta charset="UTF-8">
+	<title>Okuro</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" href="imagenes/logo.ico" type="image/png" />
 </head>
+
 <body>
-    
-
-    <nav>
-        <ul>
-            <li><a href="/login">Inicia sesion</a></li>
-            <li><a href="/register">Registrate</a></li>
-                  
-        </ul>
-    </nav>
-
+	<section><a href="/login">
+			<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<defs></defs>
+				<path id="myID" d="" />
+			</svg>
+			<h2>OKURO</h2>
+	</section>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
+		integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script src="wavify.js"></script>
+	<script src="jquery.wavify.js"></script>
+	<script type="text/javascript">
+		var myWave = $('#myID').wavify({
+			height: 550,
+			bones: 9,
+			amplitude: 90,
+			color: '#62a6ff',
+			speed: .25
+		});
+	</script></a>
 </body>
+
 </html>
