@@ -5,9 +5,13 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const hbs = require("hbs");
+const bodyparser = require('body-parser');
+
 dotenv.config({ path: './.env' });
 
 const app = express();
+
+
 
 app.use(session({
     secret: "aecret",
@@ -22,18 +26,20 @@ app.use((req, res, next) => {
 
 const publicFiles = path.join(__dirname, '/public');
 const imageFiles = path.join(__dirname, "files/profile");
+const materialFiles = path.join(__dirname, "files/material");
 app.use(express.static(publicFiles));
+app.use(express.static(materialFiles));
 app.use("/image",express.static(imageFiles));
-app.use("teams/image",express.static(imageFiles));
-
-app.use(express.urlencoded({
-    extended: false
-}));
-
-app.use(express.json());
+app.use("teams/image",express.static(imageFiles), express.static(materialFiles));
 app.use(cookieParser());
 
+app.use( bodyparser.json());
+app.use( bodyparser.urlencoded({extended:true}));
+
 hbs.registerPartials(__dirname + "/views/parciales");
+hbs.registerHelper("ifPropio", (permiso, options) => {
+    return (permiso == 1) ? options.fn(this) : options.inverse(this);
+});
 app.set('view engine', 'hbs');
 
 app.use('/', require('./routes/pages'));

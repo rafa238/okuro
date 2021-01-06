@@ -1,12 +1,16 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">{{titulo}}</h1>
-  <button class="navbar-toggler d-md-none collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" style="background-color: lightgray;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-</svg>
+  <button class="navbar-toggler d-md-none collapsed " type="button" data-bs-toggle="collapse"
+    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+    style="background-color: lightgray;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+    </svg>
   </button>
 
-  
+
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
       <a href="/" class="btn btn-sm btn-outline-secondary">
@@ -39,10 +43,34 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="/team/add">Crear Grupo</a></li>
-        <li><a class="dropdown-item" href="#">Unirme a grupo</a></li>
+        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Unirme a
+            grupo</button></li>
         <li><a class="dropdown-item" href="#">Ver mis grupos</a></li>
         <li><a class="dropdown-item" href="#">Grupos a los que pertenezco</a></li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Uneté a un grupo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/team/join" method="POST">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="col-form-label">ID del grupo:</label>
+            <input type="text" class="form-control" name="id_grupo">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Unirme</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

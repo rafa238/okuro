@@ -29,10 +29,49 @@ const insertGrupo = (grupo,id) => {
     });
 }
 
+const entrarGrupo = (id_grupo,id_usuario) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`INSERT INTO detalle_grupo VALUES (?, ? , 11)`, [id_usuario ,id_grupo], (err, result) => {
+            if(err) reject(err)
+            resolve(result)
+        });
+    });
+}
+
+const getGrupoById = (id_grupo) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM grupo WHERE id_grupo = ?", [id_grupo], (err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        });
+    });
+}
+
+const getPersonaDeGrupo = (id_grupo, id_usuario) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM detalle_grupo WHERE usuario_id_usuario = ? AND grupo_id_grupo=?", [id_usuario, id_grupo], (err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        });
+    });
+}
+
+const getPersonasDeGrupo = (id_grupo) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM detalle_grupo WHERE grupo_id_grupo = ?", [id_grupo], (err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        });
+    });
+}
 
 
 module.exports = {
     getUsuario,
     insertGrupo,
     getGrupos,
+    entrarGrupo,
+    getGrupoById,
+    getPersonasDeGrupo,
+    getPersonaDeGrupo,
 }

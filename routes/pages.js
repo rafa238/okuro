@@ -1,7 +1,14 @@
 const express = require('express');
-const connection = require('../database/db');
 const router = express.Router();
 const consultas = require('../database/consultas');
+
+const isLogged = (req, res, next) => {
+    if (req.cookies.Galletita) {
+        next();
+    } else {
+        res.redirect("/");
+    }
+}
 
 router.get('/', (req, res) => {
     if (!(req.cookies.Galletita)) {
@@ -24,39 +31,26 @@ router.get('/login', (req, res) => {
         res.redirect("/")
     }
 });
-router.get('/inicio', async (req, res) => {
-    if (req.cookies.Galletita) {
-        let grupos = await consultas.getGrupos(req.cookies.Galletita);
-        consultas.getUsuario(req.cookies.Galletita).then((results)=> {
-            res.render('inicio', {
-                id : req.cookies.Galletita,
-                nombre: results[0].nombre,
-                apellido: results[0].apellido,
-                email: results[0].email,
-                foto: results[0].imagen,
-                grupos: grupos
-            });
-        }).catch((error) => {
-            res.redirect("/")
-            console.log(error);
-        });
-    } else {
-        res.redirect("/")
-    }
-});
-router.get('/logout', (req, res) => {
-    if (req.cookies.Galletita) {
-        let cookieOptions = {
-            expires: new Date(Date.now() + process.env.JWT_COOKIEEXPIRES * 24 * 60 * 0 * 1000),
-            httpOnly: true
-        }
-        res.cookie('Galletita', 0, cookieOptions);
-        res.redirect("/");
-    }else{
-        res.redirect("/");
-    }
-});
+router.get('/inicio', isLogged, async (req, res) => {
 
+    try {
+        const grupos = await consultas.getGrupos(req.cookies.Galletita);
+        const [{ id_usuario, nombre, apellido, email, imagen, permiso_id_permiso },] = await consultas.getUsuario(req.cookies.Galletita);
+        res.render('inicio', { id_usuario, nombre, apellido, email, imagen, grupos });
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+
+});
+router.get('/logout', isLogged, (req, res) => {
+    let cookieOptions = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIEEXPIRES * 24 * 60 * 0 * 1000),
+        httpOnly: true
+    }
+    res.cookie('Galletita', 0, cookieOptions);
+    res.redirect("/");
+});
 
 
 module.exports = router;

@@ -1,7 +1,11 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block bg-light sidebar collapse">
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="position: static;">
         <a class="navbar-brand d-flex p-2" href="#" style="overflow: auto">
-            <img class="img-fluid rounded-circle bd-placeholder-img flex-shrink-0" src="/image/{{foto}}" width="32" height="32">
+            {{#if imagen}}
+                <img class="img-fluid rounded-circle bd-placeholder-img flex-shrink-0" src="/image/{{imagen}}" width="32" height="32">
+            {{else}}
+                <img class="img-fluid rounded-circle bd-placeholder-img flex-shrink-0" src="/image/undefined.jpg" width="32" height="32">
+            {{/if}}
             <p class="pb-2 mb-0 small lh-sm align-self-center m-1">{{nombre}}</p>
         </a>
         <a href="/logout" class="navbar-brand btn btn-secondary">
@@ -32,48 +36,33 @@
                 </svg>
             </a>
         </h6>
-        <ul class="nav flex-column list-group bg-light">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-
+        <div class="nav flex-column list-group mb-3 bg-light">
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
                 Si no entregas tu parte te sacamos...
-                <a href="#">
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-
+                <span class="badge bg-primary rounded-pill">14</span>
+            </a>
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
                 Si no entregas tu parte te sacamos...
-                <a href="#">
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-
+                <span class="badge bg-primary rounded-pill">14</span>
+            </a>
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
                 Si no entregas tu parte te sacamos...
-                <a href="#">
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-
+                <span class="badge bg-primary rounded-pill">14</span>
+            </a>
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
                 Si no entregas tu parte te sacamos...
-                <a href="#">
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-
+                <span class="badge bg-primary rounded-pill">14</span>
+            </a>
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="imagenes/user-1.png" width="30px" height="30px">
                 Si no entregas tu parte te sacamos...
-                <a href="#">
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-            </li>
-        </ul>
+                <span class="badge bg-primary rounded-pill">14</span>
+            </a>
+        </div>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Tareas pendientes</span>
