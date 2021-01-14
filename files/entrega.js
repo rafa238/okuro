@@ -1,11 +1,11 @@
 const multer = require('multer');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
     //destination: __dirname + "/material/",
     destination: function (req, res, cb) {
-        let dest = path.join(__dirname ,"material", req.body.id_grupo , req.body.titulo);
+        let dest = path.join(__dirname ,"material", req.body.id_grupo , req.body.titulo, req.cookies.Galletita);
         var stat = null;
         try {
             stat = fs.statSync(dest);
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
               } );
         }
         if (stat && !stat.isDirectory()) {
-            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+            throw new Error('No existe el directorio en "' + dest + '"');
         } 
         return cb(null, dest );
     } ,

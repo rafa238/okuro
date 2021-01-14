@@ -30,8 +30,8 @@
             {{> aside this}}
 
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
-
                 {{> header this titulo='Tu grupo'}}
+                <small>El id de invitacion es: {{team}}</small>
                 <form novalidate=""  class=' needs-validation' id="form" method="POST"  enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-12">
@@ -98,6 +98,36 @@
                     <hr class="my-4">
                     <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Agregar</button>
                 </form>
+                <h4>Asignaciones</h4>
+                <div class="materias container">
+                    <div class="materias">
+                        {{#each asignaciones}}
+                        <div class="card">
+                            <li class="articles__article" style="--animation-order:1; background: {{../color}}">
+                                <a class="articles__link"
+                                    href="/team/asignacion?id_grupo={{id_grupo}}&id_asignacion={{id_asignacion}}">
+                                    <div class="articles__content articles__content--lhs">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{vencimiento}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="articles__content articles__content--rhs" aria-hidden="true">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{vencimiento}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -120,7 +150,7 @@
             var date_input = $('input[name="date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             var options = {
-                format: 'mm/dd/yyyy',
+                format: 'yyyy-mm-dd',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,

@@ -1,6 +1,5 @@
 const db = require("../database/consultas");
-var fs = require('fs');
-const util = require('util');
+const path = require('path');
 
 exports.add = (req, res) => {
     const { nombreGrupo, descripcionGrupo, colorGrupo } = req.body;
@@ -48,19 +47,87 @@ exports.join = async (req, res) => {
     }
 }
 
-exports.esPropietario = async (req, res) => {
+exports.asignaciones = async (req, res) => {
     try {
         let team = req.query.id_grupo;
         let id_persona = req.cookies.Galletita;
-        const [{permiso_id_permiso},] = await db.getPersonaDeGrupo(team,id_persona);
-        console.log(permiso_id_permiso);
+        const [{ permiso_id_permiso },] = await db.getPersonaDeGrupo(team, id_persona);
         //comprobamos que sea el dueño
         if (permiso_id_permiso === 1) {
+            const asignaciones = await db.getAsignaciones(team);
+            const [{ color, }] = await db.getColor(team);
             const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
-            res.render('myTeam', { id_usuario, nombre, apellido, email, imagen, team });
-        }else{
+            res.render('myTeam', { id_usuario, nombre, apellido, email, imagen, team, asignaciones, color });
+        } else if (permiso_id_permiso === 11) {
             //si no es el dueñp de grupo aqui vamos a redirigir en caso de que no sea el lider
-            res.send("No eres lider de este grupo")
+            const asignaciones = await db.getAsignaciones(team);
+            const [{ color, }] = await db.getColor(team);
+            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
+            res.render('asignaciones', { id_usuario, nombre, apellido, email, imagen, color, asignaciones });
         }
-    } catch (error) { req.flash("message", "Ha ocurrido un error inesperado"); res.redirect('/inicio');}
+    } catch (error) {
+        req.flash("message", "No perteneces a este grupo");
+        res.redirect('/inicio');
+    }
+}
+
+exports.addAsignacion = async (req, res) => {
+    try {
+        let ruta = `/material/${req.body.id_grupo}/${req.body.titulo}/${req.file.filename}`;
+        let vencimiento = `${req.body.date} ${req.body.time}:00`;
+        await db.insertAsignacion(req.body.id_grupo, vencimiento, req.body.titulo, req.body.instrucciones, ruta);
+        res.send("Añadido");
+    } catch (error) {
+        req.flash("message", "Ha ocurrido un error inesperado");
+        res.redirect('/inicio');
+    }
+}
+
+exports.verAsignacion = async (req, res) => {
+    try {
+        let team = req.query.id_grupo;
+        let asig = req.query.id_asignacion;
+        let id_persona = req.cookies.Galletita;
+        const [{ permiso_id_permiso },] = await db.getPersonaDeGrupo(team, id_persona);
+        if (permiso_id_permiso === 1) {
+            const [asignacion,] = await db.getAsignacion(team, asig);
+            const entregas = await db.getEntregas(asig);
+            console.log(entregas);
+            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
+            res.render("entregas", { id_usuario, nombre, apellido, email, imagen, asignacion, entregas});
+        } else if (permiso_id_permiso === 11) {
+            const [asignacion,] = await db.getAsignacion(team, asig);
+            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
+            const archivos = await db.getMaterial(asig);
+            const entrega = await db.getEntrega(req.cookies.Galletita, asig);
+            res.render("asignacion", { id_usuario, nombre, apellido, email, imagen, asignacion, archivos, entrega });
+        }
+    } catch (error) {
+        req.flash("message", "Ha ocurrido un error inesperado");
+        res.redirect('/inicio');
+        console.log(error);
+    }
+}
+
+exports.entregarAsignacion = async (req, res) => {
+    try {
+        let dest = `/material/${req.body.id_grupo}/${req.body.titulo}/${req.cookies.Galletita}/${req.file.filename}`
+        await db.insertEntrega(req.cookies.Galletita, req.body.id_asignacion, dest, req.file.filename);
+        req.flash("message", "Entregado");
+        res.redirect('/inicio');
+    } catch (error) {
+        req.flash("message", "Ha ocurrido un error inesperado");
+        res.redirect('/inicio');
+        console.log(error);
+    }
+}
+
+exports.calificar = async (req, res) => {
+    try{
+        const {calificacion,id_entrega} = req.body;
+        await db.calificar(calificacion, id_entrega);
+        res.redirect(req.headers.referer);
+    }catch(error){
+
+    }
 }

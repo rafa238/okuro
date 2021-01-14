@@ -25,12 +25,12 @@ app.use((req, res, next) => {
 });
 
 const publicFiles = path.join(__dirname, '/public');
-const imageFiles = path.join(__dirname, "files/profile");
-const materialFiles = path.join(__dirname, "files/material");
+const imageFiles = path.join(__dirname, "/files/profile");
+const materialFiles = path.join(__dirname, "/files/material");
 app.use(express.static(publicFiles));
-app.use(express.static(materialFiles));
+app.use("/material", express.static(materialFiles));
 app.use("/image",express.static(imageFiles));
-app.use("teams/image",express.static(imageFiles), express.static(materialFiles));
+//app.use("/teams/image",express.static(imageFiles));
 app.use(cookieParser());
 
 app.use( bodyparser.json());

@@ -35,7 +35,7 @@ router.get('/inicio', isLogged, async (req, res) => {
 
     try {
         const grupos = await consultas.getGrupos(req.cookies.Galletita);
-        const [{ id_usuario, nombre, apellido, email, imagen, permiso_id_permiso },] = await consultas.getUsuario(req.cookies.Galletita);
+        const [{ id_usuario, nombre, apellido, email, imagen},] = await consultas.getUsuario(req.cookies.Galletita);
         res.render('inicio', { id_usuario, nombre, apellido, email, imagen, grupos });
     } catch (error) {
         console.log(error);

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="imagenes/logo.ico" type="image/png" />
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- estilos especiales -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!--Dropzone-->
+    <script src="dropzone/dropzone.js"></script>
+    <link rel="stylesheet" href="dropzone/dropzone.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            {{> aside this}}
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+                {{> header this titulo='Asignacion'}}
+                <form novalidate="" class=' needs-validation' id="form" method="POST" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <h3>{{asignacion.titulo}}</h3>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <p>
+                                {{asignacion.instrucciones}}
+                            </p>
+                            <p>
+                                Fecha: {{asignacion.vencimiento}}
+                            </p>
+                            {{#each archivos}}
+                            <p>
+                                <a href="{{ruta}}" download="{{../asignacion.titulo}}">Material {{@key}}</a>
+                            </p>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{#if entrega}}
+                        {{#each entrega}}
+                            <h5>Calificacion: </h5><h6>{{calificacion}}</h6>
+                            <h5>Entregada el: </h5><h6>{{fecha}}</h6>
+                            <p>
+                                <h5>Tus archivos enviados:</h5>
+                                <a href="{{ruta}}" download="{{nombre_archivo}}">{{nombre_archivo}}</a>
+                            </p>
+                        {{/each}}
+                    {{else}}
+                    <div class="col-12 mt-2 dropzone " id='frmTarget'>
+                        <div class='fallback'>
+                            <input name='file' type='file' multiple />
+                        </div>
+                    </div>
+                    <input name='id_asignacion' type='hidden' value="{{asignacion.id_asignacion}}" />
+                    <input name='titulo' type='hidden' value="{{asignacion.titulo}}" />
+                    <input name='id_grupo' type='hidden' value="{{asignacion.id_grupo}}" />
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Entregar</button>
+                    {{/if}}
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymou"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+
+    {{>mensaje this}}
+
+    <script>
+        Dropzone.options.frmTarget = {
+            autoProcessQueue: false,
+            parallelUploads: 10,
+            url: '/team/addEntrega',
+            paramName: "archivo",
+            dictDefaultMessage: 'Dropea aquí tus archivos a entregar',
+            init: function () {
+                var myDropzone = this;
+                // Update selector to match your button
+                $("#button").click(function (e) {
+                    e.preventDefault();
+                    myDropzone.processQueue();
+                });
+                myDropzone.on('sending', function (file, xhr, formData) {
+                    var data = $('#form').serializeArray();
+                    $.each(data, function (key, el) {
+                        console.log(el.name, el.value)
+                        formData.append(el.name, el.value);
+                    });
+                    console.log(formData.getAll("time"))
+                });
+            }
+        }
+    </script>
+    <style>
+        a[href^="/material"]::before {
+            content: "🔗 ";
+        }
+    </style>
+
+</body>
+
+</html>
