@@ -46,6 +46,7 @@ app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth2'));
 app.use('/team', require('./routes/team'), express.static(publicFiles));
 
-app.listen(5000, () => {
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
     console.log('El server esta escuchando en el puerto 5k');
 });
