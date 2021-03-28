@@ -5,23 +5,23 @@
     <meta charset="utf-8">
     <title>Okuro - Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="imagenes/logo.ico" type="image/png" />
+    <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!-- estilos especiales -->
-    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
     <!-- Bootstrap Date-Picker Plugin -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
     <!--TimePicker-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="datePicker/css/timepicker.min.css">
-    <script src="datePicker/js/timepicker.min.js"></script>
+    <link rel="stylesheet" href="/static/datePicker/css/timepicker.min.css">
+    <script src="/static/datePicker/js/timepicker.min.js"></script>
     <!--Dropzone-->
-    <script src="dropzone/dropzone.js"></script>
-    <link rel="stylesheet" href="dropzone/dropzone.css" />
+    <script src="/static/dropzone/dropzone.js"></script>
+    <link rel="stylesheet" href="/static/dropzone/dropzone.css" />
 </head>
 
 <body>
@@ -133,7 +133,6 @@
     </div>
     <!--Aqui se va a renderizar una tabla con todos lo integrantes-->
 
-
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymou"></script>
@@ -150,11 +149,11 @@
             var date_input = $('input[name="date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             var options = {
+                language: "es",
                 format: 'yyyy-mm-dd',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
-                language: "es"
             };
             date_input.datepicker(options);
         });
@@ -164,6 +163,7 @@
         Dropzone.options.frmTarget = {
             autoProcessQueue: false,
             parallelUploads: 10,
+            uploadMultiple: true,
             url: '/team/addTarea',
             paramName: "archivo",
             dictDefaultMessage : 'Dropea aquí tus archivos',
@@ -174,7 +174,7 @@
                     e.preventDefault();
                     myDropzone.processQueue();
                 });
-                myDropzone.on('sending', function (file, xhr, formData) {
+                myDropzone.on('sendingmultiple', function (file, xhr, formData) {
                     var data = $('#form').serializeArray();
                     $.each(data, function (key, el) {
                         console.log(el.name, el.value)
@@ -182,9 +182,11 @@
                     });
                     console.log(formData.getAll("time"))
                 });
+                myDropzone.on("successmultiple", function(file, responseText) {
+                    location.reload(true);
+                });
             }
         }
-
     </script>
 </body>
 

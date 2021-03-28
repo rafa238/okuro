@@ -1,82 +1,141 @@
-const db = require("../database/consultas");
+const modelGrupo = require("../database/grupo");
+const modelAsig = require("../database/asignacion");
+const modelEntrega = require("../database/entrega");
+const uploadEntrega = require('../files/entrega');
 const path = require('path');
+const moment = require('moment-timezone');
 
-exports.add = (req, res) => {
+//renderizar vista de crear un nuevo grupo
+exports.verCrear = (req, res) => {
+    try {
+        const { id_usuario, nombre, imagen } = req.session;
+        res.render('añadir-grupo', { id_usuario, nombre, imagen });
+    } catch (error) {
+        res.redirect("/");
+    }
+}
+
+//ruta POST para crear un nuevo grupo
+exports.crear = (req, res) => {
+    const { id_usuario, nombre, imagen } = req.session;
     const { nombreGrupo, descripcionGrupo, colorGrupo } = req.body;
-
-    console.log("Los datos del grupo son ----->", nombreGrupo, descripcionGrupo, colorGrupo, "del usuario: " + req.cookies.Galletita);
+    console.log("Los datos del grupo son ----->", nombreGrupo, descripcionGrupo, colorGrupo, "del usuario: " + id_usuario);
     if (!descripcionGrupo || !colorGrupo || !nombreGrupo) {
         req.flash("message", "Llena todos los campos");
         res.redirect('/team/add');
     } else {
-        db.insertGrupo({ nombre: nombreGrupo, color: colorGrupo, descripcion: descripcionGrupo }, req.cookies.Galletita).then((result) => {
-            console.log(" ----------> Grupo registrado con exito");
-            req.flash("message", "Grupo creado con exito");
-            res.redirect('/team/add');
-        }).catch((err) => {
-            req.flash("message", "Ha ocurrido un error inesperado, intentalo de nuevo");
-            res.redirect('/team/add');
+        const grupo = new modelGrupo ({ nombre: nombreGrupo, color: colorGrupo, descripcion: descripcionGrupo});
+        modelGrupo.agregar(grupo, (err, data) => {
+            if (err) {
+                req.flash("message", "Ha ocurrido un error inesperado");
+                res.status(500).redirect('/inicio');
+            } else {
+                const usuario = {
+                    usuario_id_usuario: id_usuario,
+                    grupo_id_grupo: data.id,
+                    permiso_id_permiso: 1
+                }
+                modelGrupo.agregarUsuario(usuario, (error, datas) => {
+                    if (error){
+                        req.flash("message", "Ha ocurrido un error inesperado");
+                        res.status(500).redirect('/inicio');
+                    } else {
+                        req.flash("message", "Grupo creado con exito");
+                        res.redirect('/team/add');
+                    }
+                }); 
+            }
         });
     }
 }
 
-exports.join = async (req, res) => {
+//ruta post para entrar a un nuevo grupo
+exports.entrar = async (req, res) => {
     try {
         const { id_grupo } = req.body;
-        const id_usuario = req.cookies.Galletita;
-        console.log(`El usuario ${id_usuario} quiere unirse al grupo ${id_grupo}`);
-        const existe = await db.getGrupoById(id_grupo);
-        console.log(existe);
-        if (existe.length > 0) {
-            const pertenece = await db.getPersonaDeGrupo(id_grupo, id_usuario);
-            if (pertenece.length <= 0) {
-                await db.entrarGrupo(id_grupo, id_usuario);
-                req.flash("message", "Te has unido al grupo");
-                res.redirect('/inicio');
+        const { id_usuario, } = req.session;
+        modelGrupo.obtenerGrupo(id_grupo, result = (error, existe) => {
+            if (error) throw new Error(err);
+            if (existe.length > 0) {
+                modelGrupo.obtenerPersona(id_grupo, id_usuario, (err, pertenece) => {
+                    if (err) throw new Error(err);
+                    if (pertenece.length <= 0) {
+                        const usuario = {
+                            usuario_id_usuario: id_usuario,
+                            grupo_id_grupo: id_grupo,
+                            permiso_id_permiso: 11
+                        }
+                        modelGrupo.agregarUsuario(usuario, (er, data) => {
+                            if (er) throw new Error(er);
+                            req.flash("message", "Te has unido al grupo");
+                            res.redirect('/inicio');
+                        });
+                    } else {
+                        req.flash("message", "Ya perteneces a este grupo");
+                        res.redirect('/inicio');
+                    }
+                });
             } else {
-                req.flash("message", "Ya perteneces a este grupo");
+                req.flash("message", "El grupo no existe ");
                 res.redirect('/inicio');
             }
-        } else {
-            req.flash("message", "El grupo no existe ");
-            res.redirect('/inicio');
-        }
+        });
     } catch (error) {
         req.flash("message", "Ha ocurrido un error inesperado");
         res.redirect('/inicio');
     }
 }
 
-exports.asignaciones = async (req, res) => {
+//renderiza la vista de añadir/ver asignaciones
+exports.verAsignaciones = (req, res) => {
     try {
-        let team = req.query.id_grupo;
-        let id_persona = req.cookies.Galletita;
-        const [{ permiso_id_permiso },] = await db.getPersonaDeGrupo(team, id_persona);
-        //comprobamos que sea el dueño
-        if (permiso_id_permiso === 1) {
-            const asignaciones = await db.getAsignaciones(team);
-            const [{ color, }] = await db.getColor(team);
-            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
-            res.render('myTeam', { id_usuario, nombre, apellido, email, imagen, team, asignaciones, color });
-        } else if (permiso_id_permiso === 11) {
-            //si no es el dueñp de grupo aqui vamos a redirigir en caso de que no sea el lider
-            const asignaciones = await db.getAsignaciones(team);
-            const [{ color, }] = await db.getColor(team);
-            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
-            res.render('asignaciones', { id_usuario, nombre, apellido, email, imagen, color, asignaciones });
-        }
+        const { id_usuario, nombre, imagen } = req.session;
+        const id_grupo = req.query.id_grupo;
+        modelGrupo.obtenerPersona(id_grupo, id_usuario, (err, data) => {
+            if (err) throw new Error(err);
+            const [{ permiso_id_permiso, color },] = data;
+            modelAsig.obtenerTodas(id_grupo, (error, asignaciones) => {
+                if (error) throw new Error(error);
+                if (permiso_id_permiso === 1) {
+                    //es el propietario del grupo
+                    res.render('añadir-asig', { id_usuario, nombre, imagen, id_grupo, asignaciones, color });
+                } else if (permiso_id_permiso === 11) {
+                    //si no es el dueño de grupo aqui vamos a redirigir para que vea las asignaciones
+                    res.render('asignaciones', { id_usuario, nombre, imagen, asignaciones, color });
+                }
+            });
+        });
     } catch (error) {
         req.flash("message", "No perteneces a este grupo");
+        console.log(error)
         res.redirect('/inicio');
     }
 }
 
+//ruta POST para añadir una asignacion
 exports.addAsignacion = async (req, res) => {
     try {
-        let ruta = `/material/${req.body.id_grupo}/${req.body.titulo}/${req.file.filename}`;
-        let vencimiento = `${req.body.date} ${req.body.time}:00`;
-        await db.insertAsignacion(req.body.id_grupo, vencimiento, req.body.titulo, req.body.instrucciones, ruta);
-        res.send("Añadido");
+        await uploadEntrega(req, res);
+        const vencimiento = `${req.body.date} ${req.body.time}:00`;
+        const {id_grupo, titulo, instrucciones} = req.body;
+        const asignado = moment().tz("America/Mexico_City").format();
+        const asignacion = new modelAsig({id_grupo, vencimiento,asignado, titulo, instrucciones});
+        //const {insertId} = await modelAsig.insertAsignacion();
+        modelAsig.insertAsignacion(asignacion, (err, data) => {
+            if (err) throw new Error(err);
+            for (const file of req.files) {
+                const ruta = path.join("material", file.filename).trim();
+                const material = {
+                    id_asignacion: data.id,
+                    ruta: ruta,
+                    nombre: file.originalname
+                }
+                modelAsig.insertarMaterial(material, (error, data2) => {
+                    if (error) throw new Error(error);
+                });
+            }
+            res.status(200).send("ok");
+        });
     } catch (error) {
         req.flash("message", "Ha ocurrido un error inesperado");
         res.redirect('/inicio');
@@ -85,49 +144,88 @@ exports.addAsignacion = async (req, res) => {
 
 exports.verAsignacion = async (req, res) => {
     try {
-        let team = req.query.id_grupo;
-        let asig = req.query.id_asignacion;
-        let id_persona = req.cookies.Galletita;
-        const [{ permiso_id_permiso },] = await db.getPersonaDeGrupo(team, id_persona);
+        const {id_grupo, id_asignacion} = req.query;
+        const { id_usuario, nombre, imagen } = req.session;
+        modelGrupo.obtenerPersona(id_grupo, id_usuario, (err, data) => {
+            if (err) throw new Error(err);
+            const [{ permiso_id_permiso},] = data;
+            modelAsig.obtenerAsignacion(id_grupo, id_asignacion, (error, asig) => {
+                if (error) throw new Error(err);
+                const [asignacion,] = asig;
+                if (permiso_id_permiso === 1) {
+                    modelEntrega.obtenerEntregas(id_asignacion, (er, entregas) =>{
+                        if (er) throw new Error(err);
+                        res.render("entregas", { id_usuario, nombre, imagen, asignacion, entregas });
+                    });
+                } else if (permiso_id_permiso === 11) {
+                    /*const archivos = await db.getMaterial(id_asignacion);
+                    const entrega = await db.getEntrega(id_usuario, id_asignacion);*/
+                    
+                    res.render("asignacion", { id_usuario, nombre, imagen, asignacion /*archivos, entrega*/ });
+                }
+            });
+        });
+        /*
+        const {id_grupo, id_asignacion} = req.query;
+        const { id_usuario, nombre, imagen } = req.session;
+        const [{ permiso_id_permiso },] = await modelGrupo.obtenerPersona(id_grupo, id_usuario);
         if (permiso_id_permiso === 1) {
-            const [asignacion,] = await db.getAsignacion(team, asig);
-            const entregas = await db.getEntregas(asig);
+            const [asignacion,] = await modelAsig.obtenerAsignacion(id_grupo, id_asignacion);
+            const entregas = await db.getEntregas(id_asignacion);
             console.log(entregas);
-            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
-            res.render("entregas", { id_usuario, nombre, apellido, email, imagen, asignacion, entregas});
+            res.render("entregas", { id_usuario, nombre, imagen, asignacion, entregas });
         } else if (permiso_id_permiso === 11) {
-            const [asignacion,] = await db.getAsignacion(team, asig);
-            const [{ id_usuario, nombre, apellido, email, imagen },] = await db.getUsuario(req.cookies.Galletita);
-            const archivos = await db.getMaterial(asig);
-            const entrega = await db.getEntrega(req.cookies.Galletita, asig);
-            res.render("asignacion", { id_usuario, nombre, apellido, email, imagen, asignacion, archivos, entrega });
+            const [asignacion,] = await db.getAsignacion(id_grupo, id_asignacion);
+            const archivos = await db.getMaterial(id_asignacion);
+            const entrega = await db.getEntrega(id_usuario, id_asignacion);
+            res.render("asignacion", { id_usuario, nombre, imagen, asignacion, archivos, entrega });
         }
+        */
     } catch (error) {
+        console.log(error);
         req.flash("message", "Ha ocurrido un error inesperado");
         res.redirect('/inicio');
-        console.log(error);
     }
 }
 
+//ruta POST de entregar archivos de asignacion
 exports.entregarAsignacion = async (req, res) => {
-    try {
-        let dest = `/material/${req.body.id_grupo}/${req.body.titulo}/${req.cookies.Galletita}/${req.file.filename}`
-        await db.insertEntrega(req.cookies.Galletita, req.body.id_asignacion, dest, req.file.filename);
-        req.flash("message", "Entregado");
-        res.redirect('/inicio');
-    } catch (error) {
-        req.flash("message", "Ha ocurrido un error inesperado");
-        res.redirect('/inicio');
-        console.log(error);
-    }
+    await uploadEntrega(req, res);
+    const { id_usuario, nombre, imagen } = req.session;
+    const id_asignacion = req.body.id_asignacion;
+    const fecha = moment().tz("America/Mexico_City").format();
+    const entrega = new modelEntrega({
+        id_usuario,
+        id_asignacion,
+        id_status: 11,
+        fecha,
+        calificacion: 0,
+    });
+    modelEntrega.hacerEntrega(entrega, (error, data) => {
+        if (error) {
+            req.flash("message", "Ha ocurrido un error inesperado");
+            res.status(500).redirect('/inicio');
+        } else {
+            for (const file of req.files) {
+                const ruta = path.join("material", file.filename);
+                const archivo = {id_entrega: data.id, ruta, nombre_archivo: file.originalname}
+                modelEntrega.hacerEntregable(archivo, (error, data) => {
+                    if (error) res.status(500).send('error');
+                });
+            }
+            res.status(200).send("ok");
+        }
+    });
 }
 
+//ruta POST para calificar
 exports.calificar = async (req, res) => {
-    try{
-        const {calificacion,id_entrega} = req.body;
-        await db.calificar(calificacion, id_entrega);
-        res.redirect(req.headers.referer);
-    }catch(error){
+    try {
+        const { calificacion, id_entrega } = req.body;
+        modelEntrega.calificar(calificacion, id_entrega, (err, data) => {
+            res.redirect(req.headers.referer);
+        });
+    } catch (error) {
 
     }
 }

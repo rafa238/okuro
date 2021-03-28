@@ -1,32 +1,21 @@
 const express = require('express');
 const controller = require('../controllers/teams');
 const router = express.Router();
-const consultas = require('../database/consultas');
-const upload = require('../files/filesA');
 const uploadEntrega = require('../files/entrega');
 
-const isLogged = (req, res, next) => {
-    if (req.cookies.Galletita) {
-        next();
-    } else {
-        res.redirect("/");
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
     }
+    res.redirect('/login');
 }
 
-router.get('/add', isLogged, async (req, res) => {
-    try {
-        const [{ id_usuario, nombre, apellido, email, imagen },] = await consultas.getUsuario(req.cookies.Galletita);
-        res.render('añadir-grupo', { id_usuario, nombre, apellido, email, imagen });
-    } catch (error) {
-        res.redirect("/");
-    }
-});
-
-router.post('/add', isLogged, controller.add);
-router.post('/join', isLogged, controller.join);
-router.get('/myteam', isLogged, controller.asignaciones);
-router.post('/addTarea', upload, controller.addAsignacion);
-router.get("/asignacion", isLogged, controller.verAsignacion);
-router.post("/addEntrega", uploadEntrega, controller.entregarAsignacion);
-router.post("/calificar", controller.calificar);
+router.get('/add', checkAuthenticated, controller.verCrear);
+router.get("/asignacion", checkAuthenticated, controller.verAsignacion);
+router.get('/myteam', checkAuthenticated, controller.verAsignaciones);
+router.post('/add', checkAuthenticated, controller.crear);
+router.post('/join', checkAuthenticated, controller.entrar);
+router.post('/addTarea', checkAuthenticated, controller.addAsignacion);
+router.post("/addEntrega",checkAuthenticated, controller.entregarAsignacion);
+router.post("/calificar",checkAuthenticated, controller.calificar);
 module.exports = router;  

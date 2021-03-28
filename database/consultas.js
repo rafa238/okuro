@@ -74,7 +74,7 @@ const getPersonasDeGrupo = (id_grupo) => {
     });
 }
 
-const insertAsignacion = (id_grupo, vencimiento, titulo, instrucciones, ruta) => {
+const insertAsignacion = (id_grupo, vencimiento, titulo, instrucciones) => {
     return new Promise((resolve, reject) => {
         let normalizedDate = new Date(Date.now()).toISOString();
         pool.query(`INSERT INTO asignacion VALUES (default, ?, ?, ?, ?, ?);

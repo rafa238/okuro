@@ -1,11 +1,13 @@
 const express = require('express');
 const authController = require('../controllers/auth');
 const router = express.Router();
-const upload = require('../files/img-perfil');
+const upload = require('../files/files');
+const passport = require("passport");
 
-
-router.post('/register', upload , authController.register );
-router.post('/login', authController.login );
-router.get('/logout', authController.imprime);
+router.post('/register', upload, authController.register );
+router.post('/login', passport.authenticate('local', {
+    successRedirect: "/inicio",
+    failureRedirect: "/failed",
+}));
 
 module.exports = router;    

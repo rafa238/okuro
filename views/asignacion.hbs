@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <title>Okuro - Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="imagenes/logo.ico" type="image/png" />
+    <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!-- estilos especiales -->
-    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
     <!--Dropzone-->
-    <script src="dropzone/dropzone.js"></script>
-    <link rel="stylesheet" href="dropzone/dropzone.css" />
+    <script src="/static/dropzone/dropzone.js"></script>
+    <link rel="stylesheet" href="/static/dropzone/dropzone.css" />
 </head>
 
 <body>
@@ -34,7 +34,7 @@
                                 {{asignacion.instrucciones}}
                             </p>
                             <p>
-                                Fecha: {{asignacion.vencimiento}}
+                                Fecha: <time>{{asignacion.vencimiento}}</time>
                             </p>
                             {{#each archivos}}
                             <p>
@@ -46,23 +46,21 @@
                     {{#if entrega}}
                         {{#each entrega}}
                             <h5>Calificacion: </h5><h6>{{calificacion}}</h6>
-                            <h5>Entregada el: </h5><h6>{{fecha}}</h6>
+                            <h5>Entregada el: </h5><h6><time>{{fecha}}</time></h6>
                             <p>
                                 <h5>Tus archivos enviados:</h5>
-                                <a href="{{ruta}}" download="{{nombre_archivo}}">{{nombre_archivo}}</a>
+                                <a href="/{{ruta}}" download="{{nombre_archivo}}">{{nombre_archivo}}</a>
                             </p>
                         {{/each}}
                     {{else}}
-                    <div class="col-12 mt-2 dropzone " id='frmTarget'>
-                        <div class='fallback'>
-                            <input name='file' type='file' multiple />
+                        <div class="col-12 mt-2 dropzone " id='frmTarget'>
+                            <div class='fallback'>
+                                <input name='file' type='file' multiple/>
+                            </div>
                         </div>
-                    </div>
-                    <input name='id_asignacion' type='hidden' value="{{asignacion.id_asignacion}}" />
-                    <input name='titulo' type='hidden' value="{{asignacion.titulo}}" />
-                    <input name='id_grupo' type='hidden' value="{{asignacion.id_grupo}}" />
-                    <hr class="my-4">
-                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Entregar</button>
+                        <input name='id_asignacion' type='hidden' value="{{asignacion.id_asignacion}}" />
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Entregar</button>
                     {{/if}}
                 </form>
             </main>
@@ -82,6 +80,7 @@
         Dropzone.options.frmTarget = {
             autoProcessQueue: false,
             parallelUploads: 10,
+            uploadMultiple: true,
             url: '/team/addEntrega',
             paramName: "archivo",
             dictDefaultMessage: 'Dropea aquí tus archivos a entregar',
@@ -92,13 +91,16 @@
                     e.preventDefault();
                     myDropzone.processQueue();
                 });
-                myDropzone.on('sending', function (file, xhr, formData) {
+                myDropzone.on('sendingmultiple', function (file, xhr, formData) {
                     var data = $('#form').serializeArray();
                     $.each(data, function (key, el) {
                         console.log(el.name, el.value)
                         formData.append(el.name, el.value);
                     });
                     console.log(formData.getAll("time"))
+                });
+                myDropzone.on("successmultiple", function(file, responseText) {
+                    location.reload(true);
                 });
             }
         }

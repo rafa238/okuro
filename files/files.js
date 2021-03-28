@@ -1,30 +1,30 @@
 const multer = require('multer');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
+const random = require("../utils/random")
 
 const storage = multer.diskStorage({
     //destination: __dirname + "/material/",
     destination: function (req, res, cb) {
-        let dest = path.join(__dirname ,"material", req.body.id_grupo , req.body.titulo);
+        let dest = path.join(__dirname , "profile");
         var stat = null;
         try {
             stat = fs.statSync(dest);
         } catch (err) {
             fs.mkdirSync(dest, { recursive: true }, (err) => {
                 if (err) throw err;
-              } );
+              });
         }
         if (stat && !stat.isDirectory()) {
-            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+            throw new Error('No existe el directorio en "' + dest + '"');
         } 
-        return cb(null, dest );
+        return cb(null, dest);
     } ,
     filename: function (req, file, cb) {
         let fileExtension = file.originalname.split('.')[1];
-        const fileName = file.originalname;
+        const fileName = random(5) + '.' + fileExtension;
         cb(null, fileName);
     },
-    
 });
 
 const upload = multer({

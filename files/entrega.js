@@ -1,18 +1,19 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const random = require("../utils/random");
+const util = require("util");
 
 const storage = multer.diskStorage({
-    //destination: __dirname + "/material/",
     destination: function (req, res, cb) {
-        let dest = path.join(__dirname ,"material", req.body.id_grupo , req.body.titulo, req.cookies.Galletita);
+        let dest = path.join(__dirname, "material");
         var stat = null;
         try {
             stat = fs.statSync(dest);
         } catch (err) {
             fs.mkdirSync(dest, { recursive: true }, (err) => {
                 if (err) throw err;
-              } );
+            });
         }
         if (stat && !stat.isDirectory()) {
             throw new Error('No existe el directorio en "' + dest + '"');
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
     } ,
     filename: function (req, file, cb) {
         let fileExtension = file.originalname.split('.')[1];
-        const fileName = file.originalname;
+        const fileName = random(5) + "." + fileExtension;
         cb(null, fileName);
     },
     
@@ -29,6 +30,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage
-}).single("archivo");
+}).any();
+//.array("archivo", 5);
+var uploadFilesMiddleware = util.promisify(upload);
 
-module.exports = upload;
+module.exports = uploadFilesMiddleware;
