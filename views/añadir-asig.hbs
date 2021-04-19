@@ -6,7 +6,7 @@
     <title>Okuro - Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
-    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>-->
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -28,10 +28,20 @@
     <div class="container-fluid">
         <div class="row">
             {{> aside this}}
-
+            
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
                 {{> header this titulo='Tu grupo'}}
-                <small>El id de invitacion es: {{team}}</small>
+                <div id="consultingRoom" style="display:none">
+                    <video autoplay controls muted></video>
+                    <p id="broadcasterName"></p>
+                    <ul id="viewers"></ul>
+                    <button>Detener Transmision</button>
+                </div>
+                <div id="form">
+                    <input type="hidden" id="name" value="{{nombre}}">
+                    <button id="joinBroadcaster">Iniciar Directo</button>
+                </div>
+                <small>El id de invitacion es: {{id_grupo}}</small>
                 <form novalidate=""  class=' needs-validation' id="form" method="POST"  enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-12">
@@ -94,7 +104,7 @@
                             <input name='file' type='file' multiple />
                         </div>
                     </div>
-                    <input name='id_grupo' type='hidden' value="{{team}}"/>
+                    <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo"/>
                     <hr class="my-4">
                     <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Agregar</button>
                 </form>
@@ -142,7 +152,8 @@
 
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/client.js"></script>
     {{>mensaje this}}
     <script>
         $(document).ready(function () {

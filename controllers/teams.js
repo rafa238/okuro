@@ -101,7 +101,7 @@ exports.verAsignaciones = (req, res) => {
                     res.render('añadir-asig', { id_usuario, nombre, imagen, id_grupo, asignaciones, color });
                 } else if (permiso_id_permiso === 11) {
                     //si no es el dueño de grupo aqui vamos a redirigir para que vea las asignaciones
-                    res.render('asignaciones', { id_usuario, nombre, imagen, asignaciones, color });
+                    res.render('asignaciones', { id_usuario, nombre, imagen,id_grupo, asignaciones, color });
                 }
             });
         });
