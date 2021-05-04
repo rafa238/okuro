@@ -1,4 +1,5 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block bg-light sidebar collapse">
+    <!--header del aside-->
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="position: static;">
         <a class="navbar-brand d-flex p-2" href="#" style="overflow: auto">
             {{#if imagen}}
@@ -22,9 +23,11 @@
             <span class="visually-hidden">Button</span>
         </a>
     </header>
+    <!--aqui se ven las cajitas-->
     <div class="position-sticky">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Chats</span>
+            <span>Configuraciones</span>
+            <!--este el el link en forma de circulo-->
             <a class="link-secondary" href="#">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
@@ -36,73 +39,18 @@
                 </svg>
             </a>
         </h6>
+
         <div class="nav flex-column list-group mb-3 bg-light">
             <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Si no entregas tu parte te sacamos...
+                Pendientes
                 <span class="badge bg-primary rounded-pill">14</span>
             </a>
             <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                 <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Si no entregas tu parte te sacamos...
-                <span class="badge bg-primary rounded-pill">14</span>
-            </a>
-            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-                <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Si no entregas tu parte te sacamos...
-                <span class="badge bg-primary rounded-pill">14</span>
-            </a>
-            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-                <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Si no entregas tu parte te sacamos...
-                <span class="badge bg-primary rounded-pill">14</span>
-            </a>
-            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-                <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Si no entregas tu parte te sacamos...
+                Editar Perfil
                 <span class="badge bg-primary rounded-pill">14</span>
             </a>
         </div>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Tareas pendientes</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
-                    </path>
-                    <path fill-rule="evenodd"
-                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
-                    </path>
-                </svg>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Español
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Historia
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Biologia
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Español
-                </a>
-            </li>
-        </ul>
     </div>
 </nav>

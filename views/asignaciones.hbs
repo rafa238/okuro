@@ -19,6 +19,19 @@
             {{> aside this}}
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
                 {{> header this titulo='Tus Asignaciones'}}
+
+                
+                <input type="hidden" value="{{id_grupo}}" id="id_grupo">
+                <div id="consultingRoom" style="display:none">
+                    <video autoplay controls></video>
+                    <p id="broadcasterName"></p>
+                    <ul id="viewers"></ul>
+                </div>
+                <div id="form">
+                    <input type="hidden" id="name" value="{{nombre}}">
+                    <button id="joinViewer">Ver Directo</button>
+                </div>
+
                 <div class="materias container">
                     <div class="materias">
                         {{#each asignaciones}}
@@ -58,7 +71,8 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
         crossorigin="anonymous"></script>
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/client.js"></script>
     {{>mensaje this}}
 
 </body>
