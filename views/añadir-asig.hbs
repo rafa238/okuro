@@ -28,7 +28,7 @@
     <div class="container-fluid">
         <div class="row">
             {{> aside this}}
-            
+
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
                 {{> header this titulo='Tu grupo'}}
                 <div id="consultingRoom" style="display:none">
@@ -42,13 +42,22 @@
                     <button id="joinBroadcaster">Iniciar Directo</button>
                 </div>
                 <small>El id de invitacion es: {{id_grupo}}</small>
-                <form novalidate=""  class=' needs-validation' id="form" method="POST"  enctype="multipart/form-data">
+
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+
+                <form novalidate="" class=' needs-validation' id="form" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="username" class="form-label">Titulo de la Asignacion</label>
                             <div class="input-group">
-                                <input name="titulo" type="text" class="form-control" id="username"
-                                    placeholder="Titulo" required="">
+                                <input name="titulo" type="text" class="form-control" id="username" placeholder="Titulo"
+                                    required="">
                                 <div class="invalid-feedback">
                                     El titulo es requerido de forma correcta.
                                 </div>
@@ -99,12 +108,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 mt-2 dropzone "id='frmTarget'>
+                    <div class="col-12 mt-2 dropzone " id='frmTarget'>
                         <div class='fallback'>
                             <input name='file' type='file' multiple />
                         </div>
                     </div>
-                    <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo"/>
+                    <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo" />
                     <hr class="my-4">
                     <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Agregar</button>
                 </form>
@@ -177,7 +186,7 @@
             uploadMultiple: true,
             url: '/team/addTarea',
             paramName: "archivo",
-            dictDefaultMessage : 'Dropea aquí tus archivos',
+            dictDefaultMessage: 'Dropea aquí tus archivos',
             init: function () {
                 var myDropzone = this;
                 // Update selector to match your button
@@ -193,7 +202,7 @@
                     });
                     console.log(formData.getAll("time"))
                 });
-                myDropzone.on("successmultiple", function(file, responseText) {
+                myDropzone.on("successmultiple", function (file, responseText) {
                     location.reload(true);
                 });
             }
