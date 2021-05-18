@@ -21,18 +21,11 @@ Entrega.hacerEntrega = (newEntrega, result) => {
 }
 
 Entrega.obtenerEntregas = (id_asignacion, result) => {
-    /*
-    SELECT * FROM entrega 
-    INNER JOIN entregable ON entrega.id_entrega = entregable.id_entrega 
-    INNER JOIN usuario ON entrega.id_usuario = usuario.id_usuario
-    WHERE id_asignacion = ?
-    */
-    pool.query(`SELECT asignacion.id_asignacion, usuario.id_usuario, usuario.nombre, entrega.id_entrega, fecha, entregable.nombre_archivo FROM asignacion 
-        INNER JOIN detalle_grupo ON detalle_grupo.grupo_id_grupo = asignacion.id_grupo
-        RIGHT JOIN usuario ON detalle_grupo.usuario_id_usuario = usuario.id_usuario
-        LEFT JOIN entrega ON asignacion.id_asignacion = entrega.id_asignacion AND usuario.id_usuario = entrega.id_usuario
-        LEFT JOIN entregable ON entrega.id_entrega = entregable.id_entrega
-        WHERE asignacion.id_asignacion = ?`, [id_asignacion], (err, res) => {
+    pool.query(`SELECT asignacion.id_asignacion, asignacion.id_grupo, usuario.id_usuario, usuario.nombre, entrega.id_entrega, fecha FROM asignacion 
+    INNER JOIN detalle_grupo ON detalle_grupo.grupo_id_grupo = asignacion.id_grupo
+    RIGHT JOIN usuario ON detalle_grupo.usuario_id_usuario = usuario.id_usuario AND detalle_grupo.permiso_id_permiso != 1
+    LEFT JOIN entrega ON asignacion.id_asignacion = entrega.id_asignacion AND usuario.id_usuario = entrega.id_usuario
+    WHERE asignacion.id_asignacion = ?;`, [id_asignacion], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

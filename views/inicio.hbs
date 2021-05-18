@@ -5,17 +5,13 @@
   <meta charset="utf-8">
   <title>Okuro - Inicio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <!-- estilos especiales -->
+  {{>boots}}
   <link href="/static/css/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row all-heigh ">
       {{> aside this}}
 
       <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
@@ -25,44 +21,42 @@
           <div class="materias">
 
             {{#each grupos}}
-            <div class="card">
-              <li class="articles__article" style="--animation-order:1; background: {{color}}">
-                <a class="articles__link" href="/team/myteam?id_grupo={{id_grupo}}">
-                  <div class="articles__content articles__content--lhs">
-                    <h2 class="articles__title">{{nombre}}</h2>
-                    {{#ifPropio
-                    permiso_id_permiso}}<small>Propietario</small>{{else}}<small>Miembro</small>{{/ifPropio}}
-                    <div class="articles__footer">
-                      <p></p>
-                      <p class="circulo" style="background:{{color}}"></p>
+              <div class="card">
+                <li class="articles__article" style="--animation-order:1; background: {{color}}">
+                  <a class="articles__link" href="/team/myteam?id_grupo={{id_grupo}}">
+                    <div class="articles__content articles__content--lhs">
+                      <h2 class="articles__title">{{nombre}}</h2>
+                      {{#ifPropio permiso_id_permiso}}
+                        <small>Propietario</small>
+                      {{else}}
+                        <small>Miembro</small>
+                      {{/ifPropio}}
+                      <div class="articles__footer">
+                        <p></p>
+                        <p class="circulo" style="background:{{color}}"></p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="articles__content articles__content--rhs" aria-hidden="true">
-                    <h2 class="articles__title">{{nombre}}</h2>
-                    {{#ifPropio
-                    permiso_id_permiso}}<small>Propietario</small>{{else}}<small>Miembro</small>{{/ifPropio}}
-                    <div class="articles__footer">
-                      <p></p>
-                      <p class="circulo" style="background:{{color}}"></p>
+                    <div class="articles__content articles__content--rhs" aria-hidden="true">
+                      <h2 class="articles__title">{{nombre}}</h2>
+                      {{#ifPropio permiso_id_permiso}}
+                        <small>Propietario</small>
+                      {{else}}
+                        <small>Miembro</small>
+                      {{/ifPropio}}
+                      <div class="articles__footer">
+                        <p></p>
+                        <p class="circulo" style="background:{{color}}"></p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-            </div>
+                  </a>
+                </li>
+              </div>
             {{/each}}
           </div>
         </div>
       </main>
     </div>
   </div>
-
-  <!-- JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymou"></script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-    crossorigin="anonymous"></script>
-
   {{>mensaje this}}
 
 </body>

@@ -49,4 +49,16 @@ router.get('/failed', (req, res) => {
     res.send("Usuario y/o contraseña incorrectos :( <a href='/'>Volver</a>")
 });
 
+router.get('/inicio2', (req, res) => {
+    res.render('inicio2', {});
+});
+
+router.get('/info', (req, res) => {
+    res.render('info', {});
+});
+
+router.get('/quejas', (req, res) => {
+    res.render('quejas', {});
+})
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/teams');
+const adminController = require('../controllers/adminGrupo');
 const router = express.Router();
 const uploadEntrega = require('../files/entrega');
 
@@ -9,6 +10,8 @@ function checkAuthenticated(req, res, next) {
     }
     res.redirect('/login');
 }
+/*Vistas del administrador*/
+router.get('/addAsig', adminController.verAnadirAignacion);
 
 router.get('/add', checkAuthenticated, controller.verCrear);
 router.get("/asignacion", checkAuthenticated, controller.verAsignacion);

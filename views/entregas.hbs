@@ -5,18 +5,14 @@
     <meta charset="utf-8">
     <title>Okuro - Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
-    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    {{>boots}}
     <!-- estilos especiales -->
     <link href="/static/css/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row all-heigh ">
             {{> aside this}}
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
                 {{> header this titulo='Asignacion'}}
@@ -26,35 +22,34 @@
                     </div>
                     <div class="col-12 mt-2">
                         <p>
-                            {{asignacion.instrucciones}}
+                            <b>Titulo:</b> {{asignacion.instrucciones}}
                         </p>
                         <p>
-                            Fecha: {{asignacion.vencimiento}}
+                            <b>Fecha:</b> {{#parseFecha asignacion.vencimiento}}{{/parseFecha}}
                         </p>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#id</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Archivos</th>
-                                    <th scope="col">Calificacion</th>
-                                    <th scope="col">Calificar: </th>
+                                    <th scope="col">Fecha de entrega</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each entregas}}
-                                    <form method="POST" action="/team/calificar">
-                                        <tr>
-                                            <th scope="row">{{id_usuario}}</th>
-                                            <td>{{nombre}}</td>
-                                            <td><a href="/{{ruta}}" download="{{nombre_archivo}}">{{nombre_archivo}}</a></td>
-                                            <td>{{calificacion}}</td>
-                                            <td><input name='calificacion' type='text'/></td>
-                                            <input type="hidden" value="{{id_entrega}}" name="id_entrega">
-                                            <td><input type="submit" class="btn btn-primary" value="Calificar"></td>
-                                        </tr>
-                                    </form>
+                                    <tr>
+                                        <th scope="row">{{id_usuario}}</th>
+                                        <td>{{nombre}}</td>
+                                        <td>
+                                            {{#if fecha}} 
+                                                {{#parseFecha fecha}}{{/parseFecha}}
+                                            {{else}}
+                                                ---
+                                            {{/if}}
+                                        </td>
+                                        <td><a class="btn btn-primary">Ver Entrega</a></td>
+                                    </tr>
                                 {{/each}}
                             </tbody>
                         </table>
@@ -65,20 +60,7 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymou"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-        crossorigin="anonymous"></script>
-
     {{>mensaje this}}
-
-    <style>
-        a[href^="/material"]::before {
-            content: "🔗 ";
-        }
-    </style>
-
 </body>
 
 </html>

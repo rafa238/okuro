@@ -41,7 +41,7 @@ exports.verGrupos = (req, res) => {
 }
 
 exports.verAsignaciones = (req, res) => {
-    const {id_grupo} = req.body;
+    const {id_grupo} = req.query;
     const token = req.headers['access-token'];
     const {id_usuario} = jwt.decode(token, process.env.key);
     grupoModel.obtenerPersona(id_grupo, id_usuario, (err, data) => {

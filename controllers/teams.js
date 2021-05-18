@@ -98,7 +98,7 @@ exports.verAsignaciones = (req, res) => {
                 if (error) throw new Error(error);
                 if (permiso_id_permiso === 1) {
                     //es el propietario del grupo
-                    res.render('añadir-asig', { id_usuario, nombre, imagen, id_grupo, asignaciones, color });
+                    res.render('detalle_grupo', { id_usuario, nombre, imagen, id_grupo, asignaciones, color });
                 } else if (permiso_id_permiso === 11) {
                     //si no es el dueño de grupo aqui vamos a redirigir para que vea las asignaciones
                     res.render('asignaciones', { id_usuario, nombre, imagen,id_grupo, asignaciones, color });
@@ -155,7 +155,9 @@ exports.verAsignacion = async (req, res) => {
                 if (permiso_id_permiso === 1) {
                     modelEntrega.obtenerEntregas(id_asignacion, (er, entregas) =>{
                         if (er) throw new Error(err);
-                        res.render("entregas", { id_usuario, nombre, imagen, asignacion, entregas });
+                        console.log(entregas)
+                        
+                        res.render("entregas", { id_usuario, nombre, imagen, entregas, asignacion});
                     });
                 } else if (permiso_id_permiso === 11) {
                     /*const archivos = await db.getMaterial(id_asignacion);
@@ -165,22 +167,6 @@ exports.verAsignacion = async (req, res) => {
                 }
             });
         });
-        /*
-        const {id_grupo, id_asignacion} = req.query;
-        const { id_usuario, nombre, imagen } = req.session;
-        const [{ permiso_id_permiso },] = await modelGrupo.obtenerPersona(id_grupo, id_usuario);
-        if (permiso_id_permiso === 1) {
-            const [asignacion,] = await modelAsig.obtenerAsignacion(id_grupo, id_asignacion);
-            const entregas = await db.getEntregas(id_asignacion);
-            console.log(entregas);
-            res.render("entregas", { id_usuario, nombre, imagen, asignacion, entregas });
-        } else if (permiso_id_permiso === 11) {
-            const [asignacion,] = await db.getAsignacion(id_grupo, id_asignacion);
-            const archivos = await db.getMaterial(id_asignacion);
-            const entrega = await db.getEntrega(id_usuario, id_asignacion);
-            res.render("asignacion", { id_usuario, nombre, imagen, asignacion, archivos, entrega });
-        }
-        */
     } catch (error) {
         console.log(error);
         req.flash("message", "Ha ocurrido un error inesperado");

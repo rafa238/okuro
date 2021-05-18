@@ -50,6 +50,10 @@ hbs.registerPartials(__dirname + "/views/parciales");
 hbs.registerHelper("ifPropio", (permiso, options) => {
   return (permiso == 1) ? options.fn(this) : options.inverse(this);
 });
+hbs.registerHelper("parseFecha", (fecha) => {
+  var fecha = new Date(fecha);
+  return fecha.toLocaleString("es-ES")
+});
 app.set('view engine', 'hbs');
 
 
