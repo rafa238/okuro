@@ -14,3 +14,13 @@ exports.verAnadirAignacion = (req, res) => {
         res.redirect("/");
     }
 } 
+
+exports.verIniciarDirecto = (req, res) => {
+    try {
+        const { id_usuario, nombre, imagen } = req.session;
+        const id_grupo = req.query.id_grupo;
+        res.render('administrar-trans', { id_usuario, nombre, imagen, id_grupo });
+    } catch (error) {
+        res.redirect("/");
+    }
+} 
