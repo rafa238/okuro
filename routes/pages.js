@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const modelGrupo = require('../database/grupo')
+const controller = require("../controllers/pagesc");
+const modelGrupo = require('../database/grupo');
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -57,8 +58,8 @@ router.get('/info', (req, res) => {
     res.render('info', {});
 });
 
-router.get('/quejas', (req, res) => {
-    res.render('quejas', {});
-})
+router.get('/quejas', controller.verQuejas);
+
+router.post('/addReporte', controller.guardarReporte);
 
 module.exports = router;

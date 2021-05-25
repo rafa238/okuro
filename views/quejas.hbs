@@ -1,58 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="/static/css/estilosi.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/estilosi.css">
     <title>Inicio</title>
+    {{>boots}}
 </head>
-<body >
-	<header class="menu_de_hasta_arriba_muy_cool">
-		<div class="contenedor_raro logo-nav-container">
-			<a href="/inicio2" class="logo">Wake up Project</a>
-			<nav class="navegacion_uwu">
-				<ul>
-					<li><a href="#">Okuro</a></li> 
-					<li><a href="/info">Acerca de nosotros</a></li>
-					<li><a href="/quejas">Quejas y suejerencias</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
 
-    	<main class="main">
-            <div class="contenedor_raro">
-                <article class="fondo_inicio">
-                 
-                  <center><h2>Quejas y sujerencias</h2>
-            
-                        <p>Que tipo de problema tiene</p>
-                        <div class="box">
-                            <select>
-                                <option value="0">Seleccione una opcion </option>
-                                <option value="1">Seguridad</option>
-                                <option value="2">Interfaz</option>
-                                <option value="3">xd </option>
-                
-                            </select>
+<body>
+    <header class="menu_de_hasta_arriba_muy_cool">
+        <div class="contenedor_raro logo-nav-container">
+            <a href="/inicio2" class="logo">Wake up Project</a>
+            <nav class="navegacion_uwu">
+                <ul>
+                    <li><a href="/">Okuro</a></li>
+                    <li><a href="/info">Acerca de nosotros</a></li>
+                    <li><a href="/quejas">Quejas y suejerencias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main container mb-2 mt-3">
+        <div class="contenedor_raro">
+            <article class="fondo_inicio">
+                <center>
+                <form action="addReporte" method="POST">
+                    <h2>Quejas y sujerencias</h2>
+                    <p>Que tipo de problema tiene</p>
+                    <div class="box">
+                        <select name="id_problema">
+                            {{#each problemas}}
+                                <option value="{{id_problema}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
                     </div>
-                  <p>Escriba cual es su problema</p>
-                  <textarea name="textarea" rows="10" cols="50">Escriba su problema aquí</textarea>
-                  <br><br>
-                    <button id="btn">E N V I A R</button>
-                    <br>
-                    <br>
-                </article>
-              </div>
-              <br>
-              <br> <br>
-              <br> <br>
-              <br> <br>
-              <br>
-              <ul>
-                
-        </main>
-
-
+                    <p>Escribe tu nombre</p>
+                    <input name="nombre" rows="10" cols="50" type="text" class="cuadrito_texto" placeholder="Introduce tu nombre">
+                    <p>Escribe tu correo para ponernos en contacto contigo</p>
+                    <input name="email" rows="10" cols="50" type="email" class="cuadrito_texto" placeholder="Introduce tu correo electronico">
+                    <p>Escriba cual es su problema</p>
+                    <textarea name="descripcion" rows="10" cols="50" placeholder="Introduzca una breve descrición de su problema aquí"></textarea>
+                    <button id="btn" class="btn" type="submit">E N V I A R</button>
+                </form>
+                </center>
+            </article>
+        </div>
+    </main>
+    {{>mensaje}}
 </body>
+
 </html>

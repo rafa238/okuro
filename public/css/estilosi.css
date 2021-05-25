@@ -1,6 +1,5 @@
 body{
 	background: white;	
-	font-family: ONE DAY;
 	font-size: 1rem;
 	line-height: 1.3em;
 	margin: 0;
@@ -9,8 +8,7 @@ p {
 	margin-bottom: 1.6em; 
 }
 .contenedor_raro {
-	width:90%;
-	max-width: 1200px;
+	max-width: 900px;
 	margin: auto;
 /*centrar el texto y ajustarlo */
 }
@@ -45,7 +43,7 @@ p {
 	margin-bottom: 50px;
 }
 .menu_de_hasta_arriba_muy_cool{
-	background: #000000;
+	background: #212529;
 	color:rgb(197, 206, 255);
 	padding: 2rem 0; /*centra los elementos a 2 rem de altura*/
 	position: fixed;
@@ -78,7 +76,7 @@ p {
 	border-radius: 0%;
 	width:200px;
     height:200px;
-    border: solid 3px #000000;
+    border: solid 3px #212529;
     overflow:hidden;
 	 /*cosas de las animaciones como borde o canto dura*/ 
 
@@ -98,14 +96,11 @@ p {
 .box select{
 	padding: 10px;
 	width: 250px;
-	font-family: ONE DAY;
 	cursor: pointer;
 }
 .contenedor_raro button{
     border: none;
     color: rgb(197, 206, 255);
-	font-size: 15px;
-	font-family: ONE DAY;
     background: black;
     padding: 10px 15px;
     border-radius: 0px;
@@ -128,7 +123,6 @@ p {
     border: none;
     color: rgb(0, 0, 0);
 	font-size: 15px;
-	font-family: ONE DAY;
     background: rgb(250, 252, 255);
     padding: 10px 15px;
     border-radius: 0px;
@@ -150,39 +144,43 @@ p {
 	height: 100%;
   }
   .fondo_inicio{
-	width: 70%;
-	font-size:x-large;
 	background-color:rgb(250, 252, 255);
-	border:solid 2px  #000000;
+	border:solid 2px  #212529;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	align-content: center;
 	border-radius: 5px;
 	margin-top: 2rem;
-    margin-left: 12rem;
   }
   .fondo_inicio h2{
 	color: rgb(0, 0, 0);
 	text-align: center;
-	font-size: x-large;
 	margin-bottom: 20px;
   }
 
   .cuadrito_texto{
 	background-color:rgb(250, 252, 255);
-	width: 90%;
+	width: 60%;
 	margin-bottom: 35px;
 	height: 30px;
 	border: solid 2px rgba(0, 0, 0, 0.5);
-	font-size: 20px;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	text-align: right;
   }
   .fondo_inicio p{
 	color:  rgb(0, 0, 0); 
 }
 textarea {
+	display: block;
 	resize: none;
+	width: 60%;
+  }
+  @media (max-width: 600px) {
+	textarea {
+		display: block;
+		resize: none;
+		width: 70%;
+	}
+	.cuadrito_texto{
+		width: 80%;
+	}
   }

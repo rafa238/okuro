@@ -13,4 +13,4 @@ exports.verAnadirAignacion = (req, res) => {
     } catch (error) {
         res.redirect("/");
     }
-} 
+}

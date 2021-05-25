@@ -28,7 +28,7 @@ Entrega.obtenerEntregas = (id_asignacion, result) => {
     WHERE asignacion.id_asignacion = ?;`, [id_asignacion], (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
