@@ -13,10 +13,7 @@ exports.verAnadirAignacion = (req, res) => {
     } catch (error) {
         res.redirect("/");
     }
-<<<<<<< HEAD
 }
-=======
-} 
 
 exports.verIniciarDirecto = (req, res) => {
     try {
@@ -27,4 +24,3 @@ exports.verIniciarDirecto = (req, res) => {
         res.redirect("/");
     }
 } 
->>>>>>> 561f48084c7bcb73cfef84bb69e9c82cb5cdbdde
