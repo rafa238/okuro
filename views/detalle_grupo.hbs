@@ -18,7 +18,7 @@
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
                 {{> header this titulo='Tu grupo'}}
 
-                <!--transmisiones-->
+                <!--transmisiones
                 <div id="consultingRoom" style="display:none">
                     <video autoplay controls muted></video>
                     <p id="broadcasterName"></p>
@@ -29,7 +29,7 @@
                     <input type="hidden" id="name" value="{{nombre}}">
                     <button id="joinBroadcaster">Iniciar Directo</button>
                 </div>
-                <!--fin html transmisiones-->
+                fin html transmisiones-->
 
                 <small>El id de invitacion es: {{id_grupo}}</small>
                 
@@ -70,6 +70,23 @@
                         </div>
                     </a>
 
+                    <a class="col-lg-4 col-md-6" href="/team/startDir?id_grupo={{id_grupo}}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/Tele.png" width="70px" height="30px">
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib" id="form">
+                                            <div class="stat-text">Administrar directo</div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <a class="col-lg-4 col-md-6" href="#">
                         <div class="card">
                             <div class="card-body">
@@ -88,7 +105,7 @@
                         </div>
                     </a>
                 </div>
-                <!--formulario de crear asignacion-->
+                <!--formulario de crear asignacion
                 <form novalidate="" class=' needs-validation' id="form" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-12">
@@ -154,8 +171,8 @@
                     <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo" />
                     <hr class="my-4">
                     <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Agregar</button>
-                </form>
-                <h4>Asignaciones</h4>
+                </form>-->
+                <!--<h4>Asignaciones</h4>
                 <div class="materias container">
                     <div class="materias">
                         {{#each asignaciones}}
@@ -184,7 +201,7 @@
                         </div>
                         {{/each}}
                     </div>
-                </div>
+                </div>-->
             </main>
         </div>
     </div>

@@ -12,6 +12,7 @@ function checkAuthenticated(req, res, next) {
 }
 /*Vistas del administrador*/
 router.get('/addAsig', adminController.verAnadirAignacion);
+router.get('/startDir', adminController.verIniciarDirecto);
 
 router.get('/add', checkAuthenticated, controller.verCrear);
 router.get("/asignacion", checkAuthenticated, controller.verAsignacion);

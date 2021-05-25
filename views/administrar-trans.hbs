@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{>boots}}
+    {{>libs}}
+    <!-- estilos especiales -->
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row all-heigh">
+            {{> aside this}}
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+                {{> header this titulo='Tu grupo'}}
+                <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo" />
+
+                <!--transmisiones-->
+                <div id="consultingRoom" style="display:none">
+                    <video autoplay controls muted></video>
+                    <p id="broadcasterName"></p>
+                    <ul id="viewers"></ul>
+                    <button>Detener Transmision</button>
+                </div>
+                <div id="form">
+                    <input type="hidden" id="name" value="{{nombre}}">
+                    <button id="joinBroadcaster">Iniciar Directo</button>
+                </div>
+                <!--fin html transmisiones-->
+
+                <!--<small>El id de invitacion es: {{id_grupo}}</small>-->
+            </main>
+        </div>
+    </div>
+    <!--Aqui se va a renderizar una tabla con todos lo integrantes-->
+     {{>mensaje this}}
+    <!-- JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!--transmision-->
+    <script src="/static/js/client.js"></script>
+    
+   
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Añadir Asignacion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{>boots}}
+    {{>libs}}
+    <!-- estilos especiales -->
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row all-heigh">
+            {{> aside this}}
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+                {{> header this titulo='Administrar Asignación'}}
+                <!--formulario de crear asignacion-->
+                <div class="materias container">
+                    <div class="materias">
+                        {{#each asignaciones}}
+                        <div class="card">
+                            <li class="articles__article" style="--animation-order:1; background: {{../color}}">
+                                <a class="articles__link"
+                                    href="/team/asignacion?id_grupo={{id_grupo}}&id_asignacion={{id_asignacion}}">
+                                    <div class="articles__content articles__content--lhs">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{#parseFecha vencimiento}}{{/parseFecha}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="articles__content articles__content--rhs" aria-hidden="true">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{#parseFecha vencimiento}}{{/parseFecha}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!--configuraciones de plugins-->
+    <script src="/static/js/detalle_grupo.js"></script>
+
+</html>
