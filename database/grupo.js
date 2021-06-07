@@ -29,6 +29,17 @@ Grupo.obtenerGrupo = (id_grupo, result) => {
     });
 }
 
+Grupo.obtenerPersonasGrupo = (id_grupo, result) => {
+    pool.query("SELECT usuario.nombre, usuario.apellido FROM detalle_grupo INNER JOIN usuario ON detalle_grupo.usuario_id_usuario = usuario.id_usuario WHERE grupo_id_grupo = ?", [id_grupo], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 Grupo.agregarUsuario = (usuario, result) => {
     pool.query(`INSERT INTO detalle_grupo SET ?`, usuario, (err, res) => {
         if (err) {
