@@ -22,7 +22,7 @@ Mail.sendEmail = (newMail) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail.com',
         port: 465,
-        secure: true,
+        secure: false,
         ignoreTLS: true,
         auth: {
             user: 'nocqueponer54@gmail.com',
