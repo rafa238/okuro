@@ -40,17 +40,65 @@
             </a>
         </h6>
 
-        <div class="nav flex-column list-group mb-3 bg-light">
-            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-                <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
+        <div class="nav flex-column list-group mb-3 bg-light" id="pendientes">
+            <!--<a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                <img class="ml-2 img-fluid" src="/static/imagenes/portapapeles.png" width="30px" height="30px">
                 Pendientes
                 <span class="badge bg-primary rounded-pill">14</span>
-            </a>
-            <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-                <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/user-1.png" width="30px" height="30px">
-                Editar Perfil
-                <span class="badge bg-primary rounded-pill">14</span>
-            </a>
+            </a>-->
+
+            
         </div>
     </div>
 </nav>
+<input type="hidden" value="{{id_usuario}}" id="id_usu"/>
+<script>
+    var divPendientes = document.getElementById("pendientes");
+    var id_usuario = document.getElementById("id_usu").value;
+    
+    $.getJSON(`/api/verPendientes?id_usuario=${id_usuario}`, function(resp2) {
+        const resp = resp2;
+        console.log(resp);
+        console.log(resp.length);
+        if(resp.length > 0){
+            $.each(resp, function(k, v) {
+                console.log(k + ' : ' + JSON.stringify(v));
+                crearElemntos(v);
+            });
+        } else {
+            var text = document.createElement("div");
+            text.className = "alert alert-warning";
+            text.textContent = "No hay pendientes"
+            divPendientes.appendChild(text);
+        }
+        
+    });
+
+    var crearElemntos = function(v){
+        var fecha = new Date(v.vencimiento);
+        var vencimiento = fecha.toLocaleString("es-ES");
+
+        var a = document.createElement("a");
+        a.className = "list-group-item d-flex justify-content-between align-items-center list-group-item-action";
+        a.href = `/team/asignacion?id_grupo=${v.id_grupo}&id_asignacion=${v.id_asignacion}`;
+        
+
+        var img = document.createElement("img");
+        img.className = "ml-2 img-fluid";
+        img.src = "/static/imagenes/portapapeles.png"
+        img.width = 30;
+        img.height = 30;
+
+        var span = document.createElement("span");
+        span.className = "badge rounded-pill";
+        span.style = "background-color: " + v.color;
+        span.textContent = v.nombre.charAt(0);
+
+        var text = document.createTextNode(`${v.titulo} - ${vencimiento}`);
+        
+        a.appendChild(img);
+        a.appendChild(text);
+        a.appendChild(span);
+        divPendientes.appendChild(a);
+    }
+</script>

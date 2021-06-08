@@ -22,8 +22,15 @@ const islogued = (req, res, next) => {
     }
 }
 
+router.get('/bienvenida', (req, res) => {
+    res.send({message: "no perteneces a este grupo"});
+});
 router.post('/login', controller.signin);
 router.get('/verGrupos', islogued ,controller.verGrupos);
 router.get('/verAsigaciones', islogued, controller.verAsignaciones);
+router.get('/verPendientes', controller.obtenerPendientes);
+router.post('/unir',islogued, controller.entrar);
+router.get('/verGrupo', islogued, controller.verGrupo);
+router.post('/entregarAsig', islogued, controller.entregarAsignacion);
 
 module.exports = router;

@@ -12,7 +12,7 @@ Asignacion.obtenerTodas = (id_grupo, result) => {
     pool.query("SELECT * FROM asignacion WHERE id_grupo = ?", [id_grupo], (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
@@ -21,13 +21,12 @@ Asignacion.obtenerTodas = (id_grupo, result) => {
 }
 
 Asignacion.obtenerAsignacion = (id_grupo, id_asignacion, result) => {
-    pool.query("SELECT * FROM asignacion WHERE id_grupo = ? AND id_asignacion=?", [id_grupo, id_asignacion], (err, res) => {
+    pool.query("SELECT * FROM asignacion JOIN material ON asignacion.id_asignacion = material.id_asignacion WHERE asignacion.id_grupo = ? AND asignacion.id_asignacion=?", [id_grupo, id_asignacion], (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
-
         result(null, res);
     });
 }
@@ -43,6 +42,7 @@ Asignacion.insertAsignacion = (newAsignacion, result) => {
         result(null, { id: res.insertId, ...newAsignacion });
     });
 }
+
 Asignacion.insertarMaterial = (newMaterial, result) => {
     pool.query(`INSERT INTO material SET ?`, newMaterial, (err, res) => {
         if (err) {
@@ -54,66 +54,21 @@ Asignacion.insertarMaterial = (newMaterial, result) => {
         result(null, { id: res.insertId, ...newMaterial });
     });
 }
+
+Asignacion.obtenerPendientes = (id_usuario, result) => {
+    pool.query(`SELECT titulo, vencimiento, color, grupo.nombre, asignacion.id_asignacion, asignacion.id_grupo, asignacion.instrucciones FROM detalle_grupo 
+    INNER JOIN grupo ON detalle_grupo.grupo_id_grupo=grupo.id_grupo
+    INNER JOIN asignacion ON grupo.id_grupo=asignacion.id_grupo
+    WHERE detalle_grupo.usuario_id_usuario=? 
+    AND asignacion.vencimiento > DATE_SUB(NOW(), INTERVAL 5 HOUR)
+    AND detalle_grupo.permiso_id_permiso =11;`, [id_usuario], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        result(null, res);
+    });
+}
 module.exports = Asignacion;
-/*
-module.exports = {
-    obtenerTodas: (id_grupo) => {
-        return new Promise((resolve, reject) => {
-            pool.query("SELECT * FROM asignacion WHERE id_grupo = ?", [id_grupo], (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-        });
-    },
-    obtenerAsignacion: (id_grupo, id_asignacion) => {
-        return new Promise((resolve, reject) => {
-            pool.query("SELECT * FROM asignacion WHERE id_grupo = ? AND id_asignacion=?", [id_grupo, id_asignacion], (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-        });
-    },
-    insertAsignacion: (id_grupo, vencimiento, titulo, instrucciones) => {
-        return new Promise((resolve, reject) => {
-            const normalizedDate = moment().tz("America/Mexico_City").format();
-            pool.query(`INSERT INTO asignacion VALUES (default, ?, ?, ?, ?, ?)`, [id_grupo, vencimiento, normalizedDate, titulo, instrucciones], (err, result) => {
-                if (err) reject(err);
-                resolve(result)
-            });
-        });
-    },
-    hacerEntrega: (id_usuario, id_asignacion) => {
-        return new Promise((resolve, reject) => {
-            let normalizedDate = new Date(Date.now()).toISOString();
-            pool.query(`INSERT INTO entrega VALUES (default, ? , ?, 1, ?, 0)`, [id_usuario, id_asignacion, normalizedDate], (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-        });
-    },
-    obtenerEntrega: (id_usuario, id_asignacion) => {
-        return new Promise((resolve, reject) => {
-            pool.query("SELECT id_entrega FROM entrega WHERE id_usuario = ? AND id_asignacion = ?", [id_usuario, id_asignacion], (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-        });
-    },
-    insertarEntregable: (id_entrega, ruta, filename) => {
-        return new Promise((resolve, reject) => {
-            let normalizedDate = new Date(Date.now()).toISOString();
-            pool.query(`INSERT INTO entregable VALUES (default, ?, ?, ?);`, [id_entrega, ruta, filename], (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-        });
-    },
-    insertarMaterial: (id_asignacion, ruta, nombre) => {
-        return new Promise((resolve, reject) => {
-            pool.query(`INSERT INTO material VALUES (default, ?, ?, ?)`, [id_asignacion, ruta, nombre], (err, result) => {
-                if (err) reject(err);
-                resolve(result)
-            });
-        });
-    }
-}*/

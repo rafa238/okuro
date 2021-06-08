@@ -25,8 +25,14 @@
                             <b>Titulo:</b> {{asignacion.instrucciones}}
                         </p>
                         <p>
-                            <b>Fecha:</b> {{#parseFecha asignacion.vencimiento}}{{/parseFecha}}
+                            <b>Fecha: </b>{{#parseFecha asignacion.asignado}}{{/parseFecha}} - {{#parseFecha asignacion.vencimiento}}{{/parseFecha}}
                         </p>
+                        <p>
+                            <b>Material:</b>
+                        </p>
+                        {{#each asig}}
+                            <a href="{{ruta}}" download="{{../asignacion.titulo}}">Material - {{nombre}}</a><br>
+                        {{/each}}
                         <table class="table">
                             <thead>
                                 <tr>

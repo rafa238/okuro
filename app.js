@@ -105,3 +105,5 @@ const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log('El server esta escuchando en el puerto 5k');
 });
+
+module.exports = app;

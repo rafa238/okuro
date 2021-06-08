@@ -157,13 +157,14 @@ exports.verAsignacion = async (req, res) => {
                         if (er) throw new Error(err);
                         console.log(entregas)
                         
-                        res.render("entregas", { id_usuario, nombre, imagen, entregas, asignacion});
+                        res.render("entregas", { id_usuario, nombre, imagen, entregas, asignacion, asig});
                     });
                 } else if (permiso_id_permiso === 11) {
                     /*const archivos = await db.getMaterial(id_asignacion);
                     const entrega = await db.getEntrega(id_usuario, id_asignacion);*/
-                    
-                    res.render("asignacion", { id_usuario, nombre, imagen, asignacion /*archivos, entrega*/ });
+                    modelEntrega.obtenerEntrega(id_usuario, id_asignacion, (er, entrega) => {
+                        res.render("asignacion", { id_usuario, nombre, imagen, asignacion, entrega});
+                    });
                 }
             });
         });
@@ -183,7 +184,6 @@ exports.entregarAsignacion = async (req, res) => {
     const entrega = new modelEntrega({
         id_usuario,
         id_asignacion,
-        id_status: 11,
         fecha,
         calificacion: 0,
     });

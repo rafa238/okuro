@@ -1,6 +1,6 @@
 
 const modelReporte = require('../database/reporte');
-const moment = require('moment-timezone');
+const mail = require('../utils/sendMail');
 
 exports.verQuejas = (req, res) => {
     modelReporte.obtenerProblemas((error, data) => {
@@ -18,6 +18,8 @@ exports.guardarReporte = (req, res) => {
     const tiempoTranscurrido = Date.now();
     const fecha = new Date(tiempoTranscurrido).toLocaleDateString();
     const reporte = new modelReporte({email, descripcion, id_problema, nombre, fecha});
+    const correo = new mail(reporte);
+    mail.sendEmail(correo);
     modelReporte.guardarReporte(reporte, (err, data) => {
         if (err) {
             console.log(err);

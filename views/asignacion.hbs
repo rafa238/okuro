@@ -24,38 +24,33 @@
 
                         <div class="col-12 mt-2">
                             <p>
-                                {{asignacion.instrucciones}}
+                                <b>Titulo:</b> {{asignacion.instrucciones}}
                             </p>
                             <p>
-                                Fecha: <time>{{asignacion.vencimiento}}</time>
+                                <b>Fecha: </b>{{#parseFecha asignacion.asignado}}{{/parseFecha}} <b>--></b> {{#parseFecha asignacion.vencimiento}}{{/parseFecha}}
                             </p>
-                            {{#each archivos}}
-                            <p>
-                                <a href="{{ruta}}" download="{{../asignacion.titulo}}">Material {{@key}}</a>
-                            </p>
-                            {{/each}}
                         </div>
                     </div>
-                    {{#if entrega}}
+                    {{#if entrega.0.id_entrega}}
+                        <p>
+                            <b>Calificacion:</b> {{entrega.0.calificacion}}
+                        </p>
+                        <p><b>Entregada el: </b>{{#parseFecha entrega.0.fecha}}{{/parseFecha}}</p>
+                        <h5>Tus archivos enviados:</h5>
                         {{#each entrega}}
-                            <h5>Calificacion: </h5>
-                            <h6>{{calificacion}}</h6>
-                            <h5>Entregada el: </h5>
-                            <h6><time>{{fecha}}</time></h6>
                             <p>
-                                <h5>Tus archivos enviados:</h5>
                                 <a href="/{{ruta}}" download="{{nombre_archivo}}">{{nombre_archivo}}</a>
                             </p>
                         {{/each}}
                     {{else}}
-                    <div class="col-12 mt-2 dropzone " id='frmTarget'>
-                        <div class='fallback'>
-                            <input name='file' type='file' multiple />
+                        <div class="col-12 mt-2 dropzone " id='frmTarget'>
+                            <div class='fallback'>
+                                <input name='file' type='file' multiple />
+                            </div>
                         </div>
-                    </div>
-                    <input name='id_asignacion' type='hidden' value="{{asignacion.id_asignacion}}" />
-                    <hr class="my-4">
-                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Entregar</button>
+                        <input name='id_asignacion' type='hidden' value="{{asignacion.id_asignacion}}" />
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Entregar</button>
                     {{/if}}
                 </form>
             </main>

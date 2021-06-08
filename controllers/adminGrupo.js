@@ -23,4 +23,4 @@ exports.verIniciarDirecto = (req, res) => {
     } catch (error) {
         res.redirect("/");
     }
-} 
+}

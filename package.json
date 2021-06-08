@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon app.js"
   },
   "keywords": [],
@@ -22,12 +22,15 @@
     "express-session": "^1.17.1",
     "hbs": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.4.0",
     "moment-timezone": "^0.5.33",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.18",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "supertest": "^6.1.3"
   }
 }

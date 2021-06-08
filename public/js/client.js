@@ -27,7 +27,7 @@ var socket = io();
 if (btnJoinBroadcaster != null ){
     btnJoinBroadcaster.onclick = function () {
         if (inputRoomNumber.value === "" || inputName.value === "") {
-            alert("Please type a room number and a name");
+            alert("Error");
         } else {
             user = {
                 room: inputRoomNumber.value,
@@ -54,7 +54,7 @@ if (btnJoinBroadcaster != null ){
 if (btnJoinViewer != null) {
     btnJoinViewer.onclick = function () {
         if (inputRoomNumber.value === "" || inputName.value === "") {
-            alert("Please type a room number and a name");
+            alert("Error");
         } else {
             user = {
                 room: inputRoomNumber.value,

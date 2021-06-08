@@ -2,7 +2,6 @@ const express = require('express');
 const controller = require('../controllers/teams');
 const adminController = require('../controllers/adminGrupo');
 const router = express.Router();
-const uploadEntrega = require('../files/entrega');
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {

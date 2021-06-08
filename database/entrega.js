@@ -3,7 +3,6 @@ const pool = require("../database/db");
 const Entrega = function (entrega) {
     this.id_usuario = entrega.id_usuario;
     this.id_asignacion = entrega.id_asignacion;
-    this.id_status = entrega.id_status;
     this.fecha = entrega.fecha;
     this.calificacion = entrega.calificacion;
 };
@@ -26,6 +25,21 @@ Entrega.obtenerEntregas = (id_asignacion, result) => {
     RIGHT JOIN usuario ON detalle_grupo.usuario_id_usuario = usuario.id_usuario AND detalle_grupo.permiso_id_permiso != 1
     LEFT JOIN entrega ON asignacion.id_asignacion = entrega.id_asignacion AND usuario.id_usuario = entrega.id_usuario
     WHERE asignacion.id_asignacion = ?;`, [id_asignacion], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        result(null, res);
+    });
+}
+
+Entrega.obtenerEntrega = (id_usuario, id_asignacion, result) => {
+    pool.query(`SELECT asignacion.id_asignacion, entrega.id_entrega, fecha, calificacion, ruta, nombre_archivo FROM asignacion 
+    LEFT JOIN entrega ON entrega.id_asignacion=asignacion.id_asignacion AND entrega.id_usuario=?
+    LEFT JOIN entregable ON entregable.id_entrega = entrega.id_entrega
+    WHERE asignacion.id_asignacion=?`, [id_usuario, id_asignacion], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -65,4 +79,5 @@ Entrega.calificar = (calificacion, id_entrega, result) => {
         result(null, res);
     });
 }
+
 module.exports = Entrega;
