@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Okuro - Inicio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{>boots}}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row all-heigh ">
+      {{> aside this}}
+
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+
+        {{> header this titulo='Admin'}}
+       <!-- <div class="materias container">
+          <div class="materias">-->
+              <div class="row mt-3" >
+                    <a class="col-lg-4 col-md-6" href="/reportes-admin">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <img class="ml-2 img-fluid" src="/static/imagenes/libro.png" width="60px" height="30px">
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text">Reportes de usuario</div>
+                                            <div class="stat-heading">Templates</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="col-lg-4 col-md-6" href="#">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <img class="ml-2 img-fluid" src="/static/imagenes/guia.png" width="80px" height="30px">
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text">Administrar Asignaciones</div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="col-lg-4 col-md-6" href="#">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/Tele.png" width="70px" height="30px">
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib" id="form">
+                                            <div class="stat-text">Administrar directo</div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="col-lg-4 col-md-6" href="#">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <img class="ml-2 img-fluid rounded-circle" src="/static/imagenes/group.png" width="60px" height="30px">
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text">Administrar Grupo</div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            <!--{{#each grupos}}-->
+              <!-- <div class="card">
+                <li class="articles__article" style="--animation-order:1; background: {{color}}">
+                  <a class="articles__link" href="/team/myteam?id_grupo={{id_grupo}}">
+                    <div class="articles__content articles__content--lhs">
+                      <h2 class="articles__title">{{nombre}}</h2>
+                      {{#ifPropio permiso_id_permiso}}
+                        <small>Propietario</small>
+                      {{else}}
+                        <small>Miembro</small>
+                      {{/ifPropio}}
+                      <div class="articles__footer">
+                        <p></p>
+                        <p class="circulo" style="background:{{color}}"></p>
+                      </div>
+                    </div>
+                    <div class="articles__content articles__content--rhs" aria-hidden="true">
+                      <h2 class="articles__title">{{nombre}}</h2>
+                      {{#ifPropio permiso_id_permiso}}
+                        <small>Propietario</small>
+                      {{else}}
+                        <small>Miembro</small>
+                      {{/ifPropio}}
+                      <div class="articles__footer">
+                        <p></p>
+                        <p class="circulo" style="background:{{color}}"></p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </div> -->
+            {{/each}}
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  {{>mensaje this}}
+
+</body>
+
+</html>

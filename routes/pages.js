@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require("../controllers/pagesc");
 const modelGrupo = require('../database/grupo');
+const passport = require("passport");
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -59,7 +60,15 @@ router.get('/info', (req, res) => {
 });
 
 router.get('/quejas', controller.verQuejas);
+router.get('/reportes-admin', controller.verReportes);
+router.get('/myreport', controller.verReportesPersona);
+router.get('/inicio-admin', controller.verInicioadmin);
+router.get('/login-admin', controller.verLoginadmin);
 
+router.post('/login-admin', passport.authenticate('local', {
+    successRedirect: "/inicio-admin",
+    failureRedirect: "/failed",
+}));
 router.post('/addReporte', controller.guardarReporte);
 
 module.exports = router;
