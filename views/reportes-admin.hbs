@@ -19,33 +19,14 @@
         {{> header this titulo='Reportes'}}
         <div class="Reportes container">
           <div class="Reportes">
-
-            {{#each grupos}}
+            {{#each reportes}}
               <div class="card">
-                <li class="articles__article" style="--animation-order:1; background: {{color}}">
-                  <a class="articles__link" href="/team/myreport?id_report={{id_reporte}}">
+                  <a class="articles__link" href="/myreport?id_reporte={{id_reporte}}">
                     <div class="articles__content articles__content--lhs">
-                      <h2 class="articles__title">{{tipo_reporte}}</h2>
-                      {{#ifPropio permiso_id_permiso}}
-                        <small>Propietario</small>
-                      {{else}}
-                        <small>Miembro</small>
-                      {{/ifPropio}}
-                      <div class="articles__footer">
-                        <p></p>
-                        <p class="circulo" style="background:{{color}}"></p>
-                      </div>
-                    </div>
-                    <div class="articles__content articles__content--rhs" aria-hidden="true">
                       <h2 class="articles__title">{{nombre}}</h2>
-                      {{#ifPropio permiso_id_permiso}}
-                        <small>Propietario</small>
-                      {{else}}
-                        <small>Miembro</small>
-                      {{/ifPropio}}
+                      <small>{{email}}</small>
                       <div class="articles__footer">
                         <p></p>
-                        <p class="circulo" style="background:{{color}}"></p>
                       </div>
                     </div>
                   </a>

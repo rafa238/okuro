@@ -31,4 +31,26 @@ Reporte.obtenerProblemas = (result) => {
     });
 }
 
+Reporte.obtenerReportes = (result) => {
+    pool.query("SELECT * FROM reporte", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+Reporte.obtenerReportePersona = (id_reporte, result) => {
+    pool.query("SELECT * FROM reporte INNER JOIN c_problema ON reporte.id_problema = c_problema.id_problema WHERE id_reporte=?;", [id_reporte], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 module.exports = Reporte; 

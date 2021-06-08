@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Okuro - Login</title>
+    <link rel="stylesheet" href="/static/css/style2.css">
+    <link rel="icon" href="/static/imagenes/logo.ico" type="image/png" />
+</head>
+
+<body>
+    {{>animacion}}
+    <div class="wrapper">
+        <div class="rec-prism">
+            <div class="face face-front">
+                <div class="content">
+                    {{#if message}}
+                        <h4>{{message}}</h4>
+                    {{/if}}
+                    <h2>Login</h2>
+                    <form action="/login-admin" method="POST">
+                        <div class="field-wrapper normally">
+                            <input type="text" name="username" placeholder="email">
+                            <label>Email</label>
+                        </div>
+                        <div class="field-wrapper normally">
+                            <input type="password" name="password" placeholder="Contrasena" autocomplete="new-password">
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="field-wrapper normally">
+                            <input type="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static//script.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+        $('#file_1').on('change', function () {
+            $('#inputval').text($(this).val());
+        });
+    </script>
+
+</body>
+
+</html>

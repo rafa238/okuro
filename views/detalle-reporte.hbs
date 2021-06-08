@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{>boots}}
+    {{>libs}}
+    <!-- estilos especiales -->
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row all-heigh">
+            {{> aside this}}
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+                {{> header this titulo='Reporte'}}
+                {{#each reportesPer}}
+
+                <!--transmisiones
+                <div id="consultingRoom" style="display:none">
+                    <video autoplay controls muted></video>
+                    <p id="broadcasterName"></p>
+                    <ul id="viewers"></ul>
+                    <button>Detener Transmision</button>
+                </div>
+                <div id="form">
+                    <input type="hidden" id="name" value="{{nombre}}">
+                    <button id="joinBroadcaster">Iniciar Directo</button>
+                </div>
+                fin html transmisiones-->
+
+                <small>Reporte numero: {{id_reporte}}</small>
+                
+                <div class="row mt-3" >
+                    <h4> Reporte: {{nombre_problema}} </h4>
+                    <div>
+                        <p> Reportado por {{nombre}} el dia de {{fecha}}</p>
+                        <p> {{descripcion}}</p>
+                    </div>
+                    <a href="#"> Error Areglado </a>
+                </div>
+
+                {{/each }}
+                <!--formulario de crear asignacion
+                <form novalidate="" class=' needs-validation' id="form" method="POST" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="username" class="form-label">Titulo de la Asignacion</label>
+                            <div class="input-group">
+                                <input name="titulo" type="text" class="form-control" id="username" placeholder="Titulo"
+                                    required="">
+                                <div class="invalid-feedback">
+                                    El titulo es requerido de forma correcta.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="email" class="form-label">Instrucciones </label>
+                            <textarea name="instrucciones" class="form-control" aria-label="With textarea"
+                                placeholder="Introduce las intrucciones de la tarea" required=""></textarea>
+                            <div class="invalid-feedback">
+                                Introduce una instruccion.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <label class="form-label">Fecha:</label>
+                            <div id="cp3" class="input-group">
+                                <input type="text" class="form-control" id="date" name="date" placeholder="MM/DD/YYY"
+                                    type="text" readonly="" />
+                                <span class="input-group-text input-group-addon" for="date">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar3"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                        <path fill-rule="evenodd"
+                                            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <label class="form-label">Hora:</label>
+                            <div id="cp3" class="input-group">
+                                <input type="text" class="form-control bs-timepicker" name="time" placeholder="Hora"
+                                    readonly="">
+                                <span class="input-group-text input-group-addon" for="date">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-alarm" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z" />
+                                        <path
+                                            d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z" />
+                                    </svg>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 dropzone " id='frmTarget'>
+                        <div class='fallback'>
+                            <input name='file' type='file' multiple />
+                        </div>
+                    </div>
+                    <input name='id_grupo' type='hidden' value="{{id_grupo}}" id="id_grupo" />
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit" id="button">Agregar</button>
+                </form>-->
+                <!--<h4>Asignaciones</h4>
+                <div class="materias container">
+                    <div class="materias">
+                        {{#each asignaciones}}
+                        <div class="card">
+                            <li class="articles__article" style="--animation-order:1; background: {{../color}}">
+                                <a class="articles__link"
+                                    href="/team/asignacion?id_grupo={{id_grupo}}&id_asignacion={{id_asignacion}}">
+                                    <div class="articles__content articles__content--lhs">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{#parseFecha vencimiento}}{{/parseFecha}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="articles__content articles__content--rhs" aria-hidden="true">
+                                        <h2 class="articles__title">{{titulo}}</h2>
+                                        <small>{{#parseFecha vencimiento}}{{/parseFecha}}</small>
+                                        <div class="articles__footer">
+                                            <p></p>
+                                            <p class="circulo" style="background:{{../color}}"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>-->
+            </main>
+        </div>
+    </div>
+    <!--Aqui se va a renderizar una tabla con todos lo integrantes-->
+     {{>mensaje this}}
+    <!-- JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+</body>
+
+</html>
