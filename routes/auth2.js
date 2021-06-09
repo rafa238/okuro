@@ -10,4 +10,5 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: "/failed",
 }));
 
+router.post('/modifyuser', upload, authController.modifyuser );
 module.exports = router;    

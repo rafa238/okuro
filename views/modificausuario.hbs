@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Okuro - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{>boots}}
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row all-heigh ">
+            {{> aside this}}
+            <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+                {{> header this titulo='Tus Datos'}}
+                <div class="materias container">
+                    <div class="materias">
+                        {{#if nombreU}}
+                        <form action="/auth/modifyuser" method="POST" enctype="multipart/form-data">
+                            Nombre de usuario:
+                            <input type="text" value="{{nombreU}}" name="name"><br>
+                            Apellido:
+                            <input type="text" value="{{apellidoU}}" name="lastName"><br>
+                            Email:
+                            <input type="text" value="{{emailU}}"><br>
+
+                            Cambia tu contraseña:<br>
+
+                            Ingresa la nueva contraseña:
+                            <input type="password" value="" name="password2"><br>
+                            <input type="submit">
+                        </form>
+                        {{else}}
+                        No hay datos
+                        {{/if}}
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    {{>mensaje this}}
+</body>
+
+</html>

@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/pagesc");
 const modelGrupo = require('../database/grupo');
 const passport = require("passport");
+const modelfinal = require('../database/user');
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -37,7 +38,7 @@ router.get('/inicio', checkAuthenticated, async (req, res) => {
             console.log(error);
             res.redirect("/");
         } else {
-            res.render('inicio', { id_usuario, nombre, imagen, grupos});
+            res.render('inicio', { id_usuario, nombre, imagen, grupos });
         }
     });
 });
@@ -71,4 +72,18 @@ router.post('/login-admin', passport.authenticate('local', {
 }));
 router.post('/addReporte', controller.guardarReporte);
 
+router.get('/modifyuser', checkAuthenticated, async (req, res) => {
+    const { id_usuario, nombre, imagen } = req.session;
+    console.log(id_usuario);
+    try {
+        const datosUSER = await modelfinal.obtener2(id_usuario);
+        let nombreU = datosUSER[0].nombre;
+        let emailU = datosUSER[0].email;
+        let apellidoU = datosUSER[0].apellido;
+        let contrasenaU = datosUSER[0].contrasena;
+        res.render('modificausuario', { nombreU, emailU, apellidoU, contrasenaU,id_usuario, nombre, imagen });
+    } catch (err) {
+        console.log(err);
+    }
+});
 module.exports = router;
